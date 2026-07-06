@@ -1,0 +1,2882 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APR 2026 — Course de Relais | Collège</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   DESIGN SYSTEM — APR 2026 SPORT/MISSION
+   ═══════════════════════════════════════ */
+:root {
+  --ink: #f6f9f8;
+  --ink2: #ffffff;
+  --ink3: #eef3f1;
+  --ink4: #e2eae7;
+  --surface: #ffffff;
+  --surface2: #eef3f1;
+  --border: rgba(0,153,86,0.18);
+  --border2: rgba(8,12,14,0.08);
+
+  --lime: #009956;
+  --lime2: #00b863;
+  --lime3: rgba(0,153,86,0.06);
+  --orange: #d9530f;
+  --orange2: #c43e00;
+  --amber: #b07a00;
+  --sky: #0086b3;
+  --red: #d61f48;
+
+  --text: #0c1412;
+  --text2: #3f5650;
+  --text3: #6b7f79;
+
+  --r: 4px;
+  --r2: 8px;
+  --r3: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--ink);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── SCAN LINE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+}
+
+/* ── NOISE OVERLAY ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ════════════════════
+   GLOBAL TYPOGRAPHY
+   ════════════════════ */
+.display {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  line-height: 0.95;
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ════════════════════
+   KEYFRAMES
+   ════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes glow {
+  0%,100% { box-shadow: 0 0 20px rgba(0,153,86,0.3), 0 0 40px rgba(0,153,86,0.1); }
+  50% { box-shadow: 0 0 30px rgba(0,153,86,0.5), 0 0 60px rgba(0,153,86,0.2); }
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.5); }
+}
+@keyframes ticker {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ════════════════════
+   LANDING WRAP
+   ════════════════════ */
+.landing-wrap { position: relative; z-index: 1; }
+.landing-wrap.hide { display: none; }
+
+/* ── TICKER ── */
+.ticker-bar {
+  background: var(--lime);
+  color: var(--ink);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 28s linear infinite;
+}
+.ticker-sep { margin: 0 32px; opacity: 0.4; }
+
+/* ── TOP NAV ── */
+.top-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 48px;
+  border-bottom: 1px solid var(--border2);
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(16px);
+}
+
+.nav-logo {
+  display: flex; align-items: baseline; gap: 10px;
+}
+.nav-logo .wordmark {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.6rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--lime);
+  text-shadow: 0 0 20px rgba(0,153,86,0.4);
+}
+.nav-logo .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; color: var(--text3);
+  border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 3px;
+}
+.nav-logo .tag span { color: var(--lime2); }
+
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  color: var(--text3); text-decoration: none;
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px; background: var(--lime);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.25s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.nav-action {
+  display: flex; align-items: center; gap: 10px;
+}
+.btn-launch {
+  background: var(--lime); color: var(--ink);
+  border: none; padding: 10px 22px; border-radius: var(--r);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-launch:hover {
+  background: var(--lime2);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(0,153,86,0.35);
+}
+
+/* ── HERO ── */
+.hero-section {
+  min-height: 94vh;
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left column */
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 64px;
+  position: relative;
+}
+
+.hero-kicker {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 28px;
+  animation: slideRight 0.7s ease both;
+}
+.kicker-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--lime);
+  animation: pulse 2s infinite;
+}
+.kicker-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: var(--lime);
+  letter-spacing: 3px; text-transform: uppercase;
+}
+.kicker-text .dim { color: var(--text3); }
+
+.hero-h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(4rem, 7vw, 7.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -1px;
+  margin-bottom: 32px;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero-h1 .line1 { display: block; color: var(--text); }
+.hero-h1 .line2 {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--lime);
+  text-shadow: none;
+}
+.hero-h1 .line3 {
+  display: block;
+  background: linear-gradient(90deg, var(--lime), var(--sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: 1rem; color: var(--text2); line-height: 1.75;
+  max-width: 480px; margin-bottom: 40px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.hero-desc strong { color: var(--text); }
+
+.hero-actions {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--lime); color: var(--ink);
+  border: none; padding: 14px 28px; border-radius: var(--r);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 4px 24px rgba(0,153,86,0.18);
+}
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px rgba(0,153,86,0.3);
+  background: var(--lime2);
+}
+.btn-cta .arrow { font-size: 1.2rem; transition: transform 0.2s; }
+.btn-cta:hover .arrow { transform: translateX(4px); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--text2);
+  border: 1px solid var(--border2);
+  padding: 14px 28px; border-radius: var(--r);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem; font-weight: 500;
+  cursor: pointer; transition: all 0.25s;
+}
+.btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+
+/* Right column — stat panel */
+.hero-right {
+  background: var(--ink2);
+  border-left: 1px solid var(--border2);
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.hero-right::before {
+  content: ''; position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,153,86,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.stat-stack { display: flex; flex-direction: column; gap: 0; }
+
+.stat-item {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border2);
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: center; gap: 16px;
+  transition: background 0.2s;
+}
+.stat-item:last-child { border-bottom: none; }
+.stat-item:hover { background: rgba(0,153,86,0.02); }
+
+.stat-label {
+  font-size: 0.75rem; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 6px;
+}
+.stat-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.8rem; font-weight: 900;
+  color: var(--lime); line-height: 1;
+  text-shadow: 0 0 24px rgba(0,153,86,0.3);
+}
+.stat-desc { font-size: 0.85rem; color: var(--text2); margin-top: 2px; }
+
+.stat-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem; font-weight: 500;
+  padding: 4px 10px; border-radius: 3px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.badge-green { background: rgba(0,153,86,0.1); color: var(--lime); border: 1px solid rgba(0,153,86,0.2); }
+.badge-orange { background: rgba(217,83,15,0.1); color: var(--orange); border: 1px solid rgba(217,83,15,0.2); }
+.badge-sky { background: rgba(0,134,179,0.1); color: var(--sky); border: 1px solid rgba(0,134,179,0.2); }
+.badge-amber { background: rgba(176,122,0,0.1); color: var(--amber); border: 1px solid rgba(176,122,0,0.2); }
+
+/* Corner decoration */
+.hero-right .corner-deco {
+  position: absolute; bottom: 24px; right: 24px;
+  width: 80px; height: 80px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  opacity: 0.5;
+}
+
+/* ── DIAGONAL DIVIDER ── */
+.diagonal-divider {
+  height: 80px; width: 100%;
+  background: linear-gradient(175deg, var(--ink) 49%, var(--ink2) 50%);
+}
+
+/* ── FEATURES SECTION ── */
+.features-section { padding: 80px 48px; background: var(--ink2); position: relative; }
+
+.section-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 56px; gap: 24px;
+}
+
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; color: var(--lime);
+  text-transform: uppercase; letter-spacing: 4px;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-eyebrow::before {
+  content: ''; display: block; width: 24px; height: 1px; background: var(--lime);
+}
+
+.section-h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 900; text-transform: uppercase;
+  line-height: 0.95; letter-spacing: -0.5px;
+}
+.section-h2 em { font-style: normal; color: var(--lime); }
+
+.section-sub { font-size: 0.92rem; color: var(--text2); line-height: 1.7; max-width: 400px; }
+
+/* Bento grid */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 12px;
+}
+
+.bento-card {
+  background: var(--ink3);
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 28px;
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+}
+.bento-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 60%, rgba(0,153,86,0.03));
+  pointer-events: none;
+}
+.bento-card:hover {
+  border-color: rgba(0,153,86,0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+/* Grid spans */
+.b1 { grid-column: span 4; }
+.b2 { grid-column: span 4; }
+.b3 { grid-column: span 4; }
+.b4 { grid-column: span 6; }
+.b5 { grid-column: span 6; }
+.b6 { grid-column: span 12; }
+
+@media(max-width: 1000px) {
+  .b1,.b2,.b3,.b4,.b5,.b6 { grid-column: span 12; }
+}
+
+.bento-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 5rem; font-weight: 900;
+  color: var(--border2); line-height: 1;
+  position: absolute; top: 12px; right: 20px;
+  letter-spacing: -2px;
+  pointer-events: none;
+  transition: color 0.3s;
+}
+.bento-card:hover .bento-num { color: rgba(0,153,86,0.08); }
+
+.bento-icon {
+  font-size: 1.4rem; margin-bottom: 16px; display: block;
+  position: relative; z-index: 1;
+}
+.bento-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.3rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  position: relative; z-index: 1;
+}
+.bento-desc {
+  font-size: 0.83rem; color: var(--text2); line-height: 1.65;
+  position: relative; z-index: 1;
+}
+.bento-chip {
+  display: inline-block; margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; padding: 3px 9px; border-radius: 3px;
+  background: rgba(0,153,86,0.07);
+  color: var(--lime2); border: 1px solid rgba(0,153,86,0.15);
+  text-transform: uppercase; letter-spacing: 1px;
+  position: relative; z-index: 1;
+}
+
+/* Wide card layout */
+.b6 .bento-inner {
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 28px; align-items: start;
+}
+@media(max-width: 900px) { .b6 .bento-inner { grid-template-columns: 1fr 1fr; } }
+
+.b6-stat { text-align: center; }
+.b6-stat .b6-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 3.5rem; font-weight: 900;
+  color: var(--lime); display: block; line-height: 1;
+  text-shadow: 0 0 20px rgba(0,153,86,0.3);
+}
+.b6-stat .b6-lbl { font-size: 0.73rem; color: var(--text3); margin-top: 6px; text-transform: uppercase; letter-spacing: 1.5px; }
+
+/* ── WHY SECTION ── */
+.why-section {
+  padding: 80px 48px;
+  background: var(--ink);
+  position: relative;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 56px;
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  overflow: hidden;
+}
+
+.why-item {
+  padding: 36px 40px;
+  background: var(--ink2);
+  transition: background 0.25s;
+  border-right: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+}
+.why-item:nth-child(2n) { border-right: none; }
+.why-item:nth-child(3), .why-item:nth-child(4) { border-bottom: none; }
+.why-item:hover { background: var(--ink3); }
+
+.why-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem; font-weight: 700; color: var(--lime);
+  letter-spacing: 2px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.why-num::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.why-icon { font-size: 1.6rem; margin-bottom: 14px; }
+.why-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.why-text { font-size: 0.85rem; color: var(--text2); line-height: 1.7; }
+
+@media(max-width: 768px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .why-item { border-right: none; border-bottom: 1px solid var(--border2); }
+  .why-item:last-child { border-bottom: none; }
+}
+
+/* ── TESTIMONIALS ── */
+.testi-section {
+  padding: 80px 48px;
+  background: var(--ink2);
+}
+
+.testi-rail {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 56px;
+}
+@media(max-width: 900px) { .testi-rail { grid-template-columns: 1fr; } }
+
+.testi-card {
+  background: var(--ink3);
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 28px;
+  position: relative;
+  transition: all 0.3s;
+}
+.testi-card::before {
+  content: '"';
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7rem; font-weight: 900;
+  color: rgba(0,153,86,0.06);
+  position: absolute; top: 0; right: 20px;
+  line-height: 1;
+}
+.testi-card:hover { border-color: rgba(0,153,86,0.2); transform: translateY(-3px); }
+
+.testi-stars {
+  display: flex; gap: 3px; margin-bottom: 18px;
+}
+.star {
+  width: 12px; height: 12px;
+  background: var(--amber);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.testi-text {
+  font-size: 0.87rem; color: var(--text2); line-height: 1.75;
+  margin-bottom: 24px; position: relative; z-index: 1;
+}
+
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-av {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--lime2), var(--sky));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 0.9rem; color: var(--ink);
+  flex-shrink: 0;
+}
+.testi-name { font-size: 0.88rem; font-weight: 600; }
+.testi-role { font-size: 0.73rem; color: var(--text3); margin-top: 2px; }
+
+/* ── CTA SECTION ── */
+.cta-section {
+  padding: 100px 48px;
+  background: var(--ink);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; left: -200px; top: -200px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,153,86,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; color: var(--lime);
+  text-transform: uppercase; letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+.cta-h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.8rem, 4vw, 4.5rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.9;
+  letter-spacing: -0.5px; margin-bottom: 24px;
+}
+.cta-h2 em { font-style: normal; color: var(--lime); }
+.cta-desc { font-size: 0.9rem; color: var(--text2); line-height: 1.75; margin-bottom: 36px; }
+
+.cta-features { display: flex; flex-direction: column; gap: 12px; }
+.cta-feat {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.85rem; color: var(--text2);
+}
+.cta-feat-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); flex-shrink: 0; }
+
+@media(max-width: 900px) { .cta-section { grid-template-columns: 1fr; gap: 40px; } }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--ink2);
+  border-top: 1px solid var(--border2);
+  padding: 32px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.2rem; font-weight: 900;
+  color: var(--lime); letter-spacing: 1px;
+}
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; color: var(--text3);
+  text-align: center; line-height: 1.8;
+}
+.footer-status {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; color: var(--text3);
+}
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); animation: pulse 2s infinite; }
+
+/* ════════════════════
+   APP WRAP
+   ════════════════════ */
+.app-wrap { display: none; position: relative; z-index: 1; }
+.app-wrap.show { display: block; }
+
+/* ── APP NAV ── */
+.app-nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 40px;
+}
+.app-nav .wordmark {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem; font-weight: 900;
+  text-transform: uppercase; color: var(--lime);
+  letter-spacing: 1px;
+}
+.app-nav .nav-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--text3);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 1px;
+}
+
+/* ── TAB BAR ── */
+.tab-bar {
+  display: flex;
+  background: var(--ink2);
+  border-bottom: 1px solid var(--border2);
+  overflow-x: auto;
+}
+.tab-btn {
+  flex-shrink: 0; padding: 0 32px; height: 52px;
+  background: none; border: none; border-bottom: 2px solid transparent;
+  color: var(--text3);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+}
+.tab-btn .tab-icon { font-size: 1rem; }
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--lime); border-bottom-color: var(--lime); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ════════════════════
+   EVAL MODULE
+   ════════════════════ */
+.eval-layout {
+  display: grid; grid-template-columns: 360px 1fr;
+  gap: 0; min-height: calc(100vh - 105px);
+}
+@media(max-width: 900px){ .eval-layout { grid-template-columns: 1fr; } }
+
+/* Config sidebar */
+.config-sidebar {
+  background: var(--ink2);
+  border-right: 1px solid var(--border2);
+  padding: 24px;
+  overflow-y: auto;
+  max-height: calc(100vh - 105px);
+  position: sticky; top: 105px;
+}
+@media(max-width: 900px){ .config-sidebar { position: static; max-height: none; } }
+
+/* Main area */
+.eval-main {
+  padding: 24px;
+  background: var(--ink);
+  overflow-y: auto;
+}
+
+/* Panels */
+.panel {
+  background: var(--ink3);
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px;
+}
+.panel-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  display: flex; align-items: center; gap: 8px;
+}
+.panel-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; background: var(--lime); color: var(--ink);
+  padding: 2px 7px; border-radius: 3px; font-weight: 700;
+}
+
+/* Form elements */
+.form-group { margin-bottom: 14px; }
+.form-label {
+  display: block; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 7px;
+}
+.form-select, .form-input {
+  width: 100%; background: var(--ink4);
+  border: 1px solid var(--border2);
+  color: var(--text); padding: 9px 12px;
+  border-radius: var(--r);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+}
+.form-select:focus, .form-input:focus {
+  border-color: rgba(0,153,86,0.4);
+  box-shadow: 0 0 0 3px rgba(0,153,86,0.06);
+}
+
+.toggle-group { display: flex; gap: 8px; }
+.toggle-btn {
+  flex: 1; background: var(--ink4); border: 1px solid var(--border2);
+  color: var(--text3); padding: 9px 8px; border-radius: var(--r);
+  font-family: 'JetBrains Mono', monospace; font-size: 0.73rem;
+  cursor: pointer; text-align: center; transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+.toggle-btn.active {
+  background: rgba(0,153,86,0.08);
+  border-color: rgba(0,153,86,0.3);
+  color: var(--lime);
+}
+
+.relay-info-box {
+  background: rgba(0,153,86,0.04);
+  border: 1px solid rgba(0,153,86,0.15);
+  border-radius: var(--r2); padding: 12px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: var(--text2);
+  line-height: 1.9; margin: 14px 0;
+}
+.relay-info-box strong { color: var(--lime); }
+
+.trans-criteres {
+  margin-top: 8px; padding: 10px 12px;
+  background: var(--ink4); border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  font-size: 0.74rem; color: var(--text2); line-height: 1.6;
+}
+.trans-criteres strong { color: var(--text); }
+
+.bareme-trans-detail {
+  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border2);
+  font-size: 0.68rem; color: var(--text3); line-height: 1.7;
+}
+.bareme-trans-detail div { margin-bottom: 4px; }
+.bareme-trans-detail strong { color: var(--text2); }
+
+.btn-add {
+  width: 100%; background: var(--lime); color: var(--ink);
+  border: none; padding: 12px;
+  border-radius: var(--r);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s; margin-top: 8px;
+}
+.btn-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,153,86,0.3);
+}
+
+/* Stats cards */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px; margin-bottom: 18px;
+}
+@media(max-width: 1100px) { .stats-row { grid-template-columns: repeat(3, 1fr); } }
+
+.stat-card {
+  background: var(--ink3); border: 1px solid var(--border2);
+  border-radius: var(--r2); padding: 14px;
+  text-align: center;
+}
+.stat-card .num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2rem; font-weight: 900;
+  color: var(--lime); display: block;
+  text-shadow: 0 0 16px rgba(0,153,86,0.25);
+}
+.stat-card .lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;
+}
+
+/* Barème box */
+.bareme-box {
+  background: var(--ink2); border: 1px solid var(--border2);
+  border-radius: var(--r2); padding: 14px; margin: 14px 0;
+}
+.bareme-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--lime);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.bareme-row {
+  display: flex; justify-content: space-between;
+  padding: 5px 0; border-bottom: 1px solid var(--border2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; color: var(--text2);
+}
+.bareme-row:last-child { border: none; }
+.bareme-row strong { color: var(--text); }
+
+.bareme-detail-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; }
+.bareme-detail-table th, .bareme-detail-table td { padding: 5px 6px; text-align: left; border-bottom: 1px solid var(--border2); color: var(--text2); }
+.bareme-detail-table th { color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.6rem; }
+.bareme-detail-table td:first-child, .bareme-detail-table th:first-child { color: var(--lime); font-weight: 700; }
+.bareme-detail-table tr:last-child td { border-bottom: none; }
+.bareme-note { font-size: 0.68rem; color: var(--text3); line-height: 1.6; margin-top: 8px; font-style: italic; }
+
+/* Action row */
+.action-row { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+
+.btn-sm {
+  padding: 7px 14px; border-radius: var(--r);
+  border: 1px solid var(--border2);
+  background: var(--ink3); color: var(--text2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; cursor: pointer; transition: all 0.2s;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.btn-sm:hover { border-color: var(--lime); color: var(--lime); }
+.btn-sm.danger:hover { border-color: var(--red); color: var(--red); }
+.btn-sm.green { background: rgba(0,153,86,0.06); border-color: rgba(0,153,86,0.2); color: var(--lime); }
+
+/* Table */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border2); border-radius: var(--r2); }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+th {
+  background: var(--ink4); color: var(--text3);
+  padding: 10px 12px; text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1.5px;
+  border-bottom: 1px solid var(--border2);
+  white-space: nowrap;
+}
+td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(0,153,86,0.02); }
+
+.note-display {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.3rem; font-weight: 900; color: var(--lime);
+}
+.badge-level {
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 1px;
+}
+.badge-level.a { background: rgba(0,153,86,0.1); color: var(--lime); border: 1px solid rgba(0,153,86,0.25); }
+.badge-level.b { background: rgba(176,122,0,0.1); color: var(--amber); border: 1px solid rgba(176,122,0,0.25); }
+.badge-level.c { background: rgba(214,31,72,0.1); color: var(--red); border: 1px solid rgba(214,31,72,0.25); }
+
+/* Saisie équipe — grille coureurs / zones */
+.runner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.runner-grid .form-input { font-size: 0.78rem; padding: 8px 10px; }
+.mini-label { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display:block; }
+.zone-grid { display: grid; gap: 8px; }
+.zone-row { display: flex; align-items: center; gap: 8px; }
+.zone-row .zone-label { flex: 0 0 62px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--text2); }
+.zone-row .form-select { flex: 1; padding: 7px 10px; font-size: 0.75rem; }
+.essai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* Barème — table éditable des paliers de temps exacts */
+.bareme-edit-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; }
+.bareme-edit-table th, .bareme-edit-table td { padding: 5px 6px; text-align: left; border-bottom: 1px solid var(--border2); color: var(--text2); }
+.bareme-edit-table th { color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.58rem; }
+.bareme-edit-table td:first-child { color: var(--lime); font-weight: 700; }
+.bareme-edit-table input[type=number] {
+  width: 64px; background: var(--ink4); border: 1px solid var(--border2); color: var(--text);
+  padding: 4px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; outline: none;
+}
+.bareme-edit-table input[type=number]:focus { border-color: rgba(0,153,86,0.4); }
+.bareme-edit-table tr:last-child td { border-bottom: none; }
+.zone-chip { display:inline-block; padding:1px 6px; border-radius:3px; font-size:0.6rem; font-weight:700; margin-right:3px; font-family:'JetBrains Mono',monospace; }
+.zone-chip.bien { background: rgba(0,153,86,0.12); color: var(--lime); }
+.zone-chip.moyen { background: rgba(176,122,0,0.12); color: var(--amber); }
+.zone-chip.faible { background: rgba(214,31,72,0.12); color: var(--red); }
+.runners-cell { font-size: 0.72rem; line-height: 1.5; color: var(--text2); }
+.runners-cell strong { color: var(--text); }
+
+.empty-state {
+  text-align: center; padding: 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; color: var(--text3);
+}
+.empty-state .e-icon { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+
+/* ════════════════════
+   CONDUITES MODULE
+   ════════════════════ */
+.conduites-wrap { padding: 28px; }
+
+.alert-bar {
+  background: rgba(0,134,179,0.05);
+  border: 1px solid rgba(0,134,179,0.15);
+  border-radius: var(--r2); padding: 12px 16px;
+  font-size: 0.82rem; color: var(--text2); line-height: 1.7;
+  margin-bottom: 24px;
+}
+.alert-bar strong { color: var(--sky); }
+
+.niveau-tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+.niv-btn {
+  padding: 9px 22px; border-radius: var(--r);
+  border: 1px solid var(--border2); background: var(--ink3);
+  color: var(--text3);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.niv-btn.debutant.active { background: rgba(214,31,72,0.08); border-color: var(--red); color: var(--red); }
+.niv-btn.intermediaire.active { background: rgba(176,122,0,0.08); border-color: var(--amber); color: var(--amber); }
+.niv-btn.avance.active { background: rgba(0,153,86,0.08); border-color: var(--lime); color: var(--lime); }
+
+.niveau-label {
+  padding: 10px 16px; border-radius: var(--r2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+.niveau-label.red { background: rgba(214,31,72,0.06); border: 1px solid rgba(214,31,72,0.18); color: var(--red); }
+.niveau-label.amber { background: rgba(176,122,0,0.06); border: 1px solid rgba(176,122,0,0.18); color: var(--amber); }
+.niveau-label.green { background: rgba(0,153,86,0.06); border: 1px solid rgba(0,153,86,0.18); color: var(--lime); }
+
+.conduites-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+
+.cond-card {
+  background: var(--ink3); border: 1px solid var(--border2);
+  border-radius: var(--r2); padding: 20px;
+}
+.cond-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 14px;
+  color: var(--text);
+}
+.cond-section { margin-top: 12px; }
+.cond-section-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
+}
+.cond-list { list-style: none; }
+.cond-list li {
+  padding: 4px 0; font-size: 0.8rem; color: var(--text2);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+}
+.cond-list li::before { content: '›'; color: var(--lime2); flex-shrink: 0; font-size: 1rem; }
+.cond-list li:last-child { border-bottom: none; }
+
+.synthese-box {
+  background: linear-gradient(135deg, rgba(0,153,86,0.04), rgba(0,134,179,0.03));
+  border: 1px solid var(--border); border-radius: var(--r2);
+  padding: 22px; margin-top: 20px;
+}
+.synthese-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.synthese-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.syn-item {
+  background: var(--ink3); border-radius: var(--r2); padding: 14px;
+  border: 1px solid var(--border2);
+}
+.syn-item-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--lime); text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 8px;
+}
+.syn-item ul { list-style: none; }
+.syn-item ul li { font-size: 0.75rem; color: var(--text2); padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.syn-item ul li::before { content: '• '; color: var(--lime2); }
+.syn-item ul li:last-child { border-bottom: none; }
+
+.niveau-content { display: none; }
+
+/* ════════════════════
+   PLANIFICATION MODULE
+   ════════════════════ */
+.plan-wrap { padding: 28px; }
+
+.plan-config {
+  background: var(--ink3); border: 1px solid var(--border2);
+  border-radius: var(--r2); padding: 22px; margin-bottom: 24px;
+}
+.config-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px; margin: 16px 0;
+}
+
+.btn-gen {
+  background: linear-gradient(135deg, var(--lime2), #00a855);
+  color: var(--ink); border: none; padding: 11px 26px;
+  border-radius: var(--r);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.btn-gen:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,153,86,0.3); }
+
+.seances-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.seance-card {
+  background: var(--ink3); border: 1px solid var(--border2);
+  border-radius: var(--r2); padding: 18px;
+  transition: all 0.2s; position: relative; overflow: hidden;
+}
+.seance-card:hover { border-color: rgba(0,153,86,0.2); transform: translateY(-2px); }
+.seance-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+}
+.seance-card.phase-decouverte::before { background: var(--lime); }
+.seance-card.phase-apprentissage::before { background: var(--amber); }
+.seance-card.phase-approfondissement::before { background: var(--sky); }
+.seance-card.phase-evaluation::before { background: var(--red); }
+
+.seance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.seance-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.6rem; font-weight: 900; color: var(--lime); line-height: 1;
+}
+.seance-phase {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; padding: 3px 8px; border-radius: 3px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.phase-decouverte { background: rgba(0,153,86,0.08); color: var(--lime); }
+.phase-apprentissage { background: rgba(176,122,0,0.08); color: var(--amber); }
+.phase-approfondissement { background: rgba(0,134,179,0.08); color: var(--sky); }
+.phase-evaluation { background: rgba(214,31,72,0.08); color: var(--red); }
+
+.seance-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem; font-weight: 600; margin-bottom: 8px;
+}
+.seance-obj { font-size: 0.77rem; color: var(--text2); line-height: 1.6; margin-bottom: 10px; }
+.seance-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.seance-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; padding: 2px 7px; border-radius: 3px;
+  background: var(--ink4); color: var(--text3);
+  border: 1px solid var(--border2); text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* Level summary box */
+.niveau-summary {
+  background: var(--ink3); border: 1px solid var(--border2);
+  border-radius: var(--r2); padding: 22px; margin-bottom: 22px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.niveau-summary .ns-block { display: flex; flex-direction: column; gap: 6px; }
+.niveau-summary .ns-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem; color: var(--lime);
+  text-transform: uppercase; letter-spacing: 2px;
+}
+.niveau-summary .ns-text { font-size: 0.82rem; color: var(--text2); line-height: 1.6; }
+.niveau-summary .ns-text strong { color: var(--text); }
+.niveau-summary .ns-full { grid-column: 1 / -1; }
+
+/* Repartition bar */
+.repartition-bar {
+  display: flex; height: 8px; border-radius: 4px; overflow: hidden;
+  margin: 14px 0 22px; border: 1px solid var(--border2);
+}
+.repartition-bar span { height: 100%; }
+.repartition-legend {
+  display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 22px;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.repartition-legend .leg-item { display: flex; align-items: center; gap: 6px; }
+.repartition-legend .leg-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+/* ════════════════════
+   SCROLLBAR
+   ════════════════════ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--ink2); }
+::-webkit-scrollbar-thumb { background: var(--ink4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--lime2); }
+
+/* ════════════════════
+   RESPONSIVE
+   ════════════════════ */
+@media(max-width: 768px) {
+  .top-nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .hero-section { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 40px 24px 60px; }
+  .hero-h1 { font-size: 3.8rem; }
+  .features-section, .why-section, .testi-section, .cta-section { padding: 48px 20px; }
+  .config-sidebar { position: static; max-height: none; border-right: none; border-bottom: 1px solid var(--border2); }
+  .eval-layout { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .section-head { flex-direction: column; align-items: flex-start; }
+  .site-footer { padding: 20px; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ LANDING ═══════════ -->
+<div class="landing-wrap" id="landingWrap">
+
+  <!-- Ticker -->
+  <div class="ticker-bar" aria-hidden="true">
+    <span class="ticker-inner">
+      APR 2026 — Course de Relais
+      <span class="ticker-sep">◆</span>
+      Plateforme EPS Maroc
+      <span class="ticker-sep">◆</span>
+      Conforme OP 2007/2009
+      <span class="ticker-sep">◆</span>
+      Évaluation Équipe 12·13·14
+      <span class="ticker-sep">◆</span>
+      Conduites Typiques
+      <span class="ticker-sep">◆</span>
+      Planification Dynamique
+      <span class="ticker-sep">◆</span>
+      Export CSV Intégré
+      <span class="ticker-sep">◆</span>
+      Version Beta
+      <span class="ticker-sep">◆</span>
+      APR 2026 — Course de Relais
+      <span class="ticker-sep">◆</span>
+      Plateforme EPS Maroc
+      <span class="ticker-sep">◆</span>
+      Conforme OP 2007/2009
+      <span class="ticker-sep">◆</span>
+    </span>
+  </div>
+
+  <!-- Nav -->
+  <nav class="top-nav">
+    <div class="nav-logo">
+      <span class="wordmark">APR 2026</span>
+      <span class="tag">v1.0 <span>BETA</span></span>
+    </div>
+    <div class="nav-links">
+      <a href="#features" onclick="scrollToSection('features')">Fonctionnalités</a>
+      <a href="#why" onclick="scrollToSection('why')">Avantages</a>
+      <a href="#testi" onclick="scrollToSection('testi')">Témoignages</a>
+    </div>
+    <div class="nav-action">
+      <button class="btn-launch" onclick="openApp()">Accéder →</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-section">
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="hero-kicker">
+        <div class="kicker-dot"></div>
+        <span class="kicker-text">Plateforme EPS · Maroc · <span class="dim">OP 2009 Actif</span></span>
+      </div>
+      <h1 class="hero-h1">
+        <span class="line1">Plateforme</span>
+        <span class="line2">Intelligente</span>
+        <span class="line3">Course Relais</span>
+      </h1>
+      <p class="hero-desc">
+        Évaluation des équipes, conduites typiques, planification de cycle.<br>
+        <strong>Conçu pour les enseignants EPS marocains.</strong><br>
+        Conforme aux Orientations Pédagogiques 2007/2009.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-cta" onclick="openApp()">
+          Commencer maintenant <span class="arrow">→</span>
+        </button>
+        <button class="btn-outline" onclick="scrollToSection('features')">
+          Voir les fonctionnalités
+        </button>
+      </div>
+    </div>
+
+    <!-- Right — stats panel -->
+    <div class="hero-right">
+      <div class="corner-deco"></div>
+      <div class="stat-stack">
+        <div class="stat-item">
+          <div>
+            <div class="stat-label">Niveaux scolaires</div>
+            <div class="stat-value">3</div>
+            <div class="stat-desc">1ASC · 2ASC · 3ASC</div>
+          </div>
+          <span class="stat-badge badge-green">Collège</span>
+        </div>
+        <div class="stat-item">
+          <div>
+            <div class="stat-label">Formats de relais</div>
+            <div class="stat-value">4×</div>
+            <div class="stat-desc">30m · 40m · 50m · 100m</div>
+          </div>
+          <span class="stat-badge badge-sky">Formats</span>
+        </div>
+        <div class="stat-item">
+          <div>
+            <div class="stat-label">Barème officiel</div>
+            <div class="stat-value">12·13·14</div>
+            <div class="stat-desc">Perf + Transmission (1AC·2AC·3AC)</div>
+          </div>
+          <span class="stat-badge badge-amber">Officiel</span>
+        </div>
+        <div class="stat-item">
+          <div>
+            <div class="stat-label">Conformité programme</div>
+            <div class="stat-value">OP09</div>
+            <div class="stat-desc">Orientations Pédagogiques Maroc</div>
+          </div>
+          <span class="stat-badge badge-orange">Certifié</span>
+        </div>
+        <div class="stat-item">
+          <div>
+            <div class="stat-label">Modules intégrés</div>
+            <div class="stat-value">3</div>
+            <div class="stat-desc">Évaluation · Conduites · Planif</div>
+          </div>
+          <span class="stat-badge badge-green">Complet</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Bento Grid -->
+  <div id="features">
+    <section class="features-section">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">Fonctionnalités</div>
+          <h2 class="section-h2">Tout ce dont vous<br>avez <em>besoin</em></h2>
+        </div>
+        <p class="section-sub">Trois modules intégrés pour couvrir l'intégralité du travail pédagogique en Course de Relais.</p>
+      </div>
+
+      <div class="bento">
+        <div class="bento-card b1">
+          <div class="bento-num">01</div>
+          <span class="bento-icon">⚡</span>
+          <div class="bento-title">Évaluation Temps Réel</div>
+          <p class="bento-desc">Saisie des temps, calcul auto adapté à la classe (12/13/14), transmission, détection niveau A/B/C et export CSV instantané.</p>
+          <span class="bento-chip">Course de Relais · Collège</span>
+        </div>
+        <div class="bento-card b2">
+          <div class="bento-num">02</div>
+          <span class="bento-icon">🧭</span>
+          <div class="bento-title">Conduites Typiques</div>
+          <p class="bento-desc">Référentiel complet par niveau couvrant les domaines moteur, tactique, méthodologique et social.</p>
+          <span class="bento-chip">OP 2009 · Référentiel</span>
+        </div>
+        <div class="bento-card b3">
+          <div class="bento-num">03</div>
+          <span class="bento-icon">📋</span>
+          <div class="bento-title">Planification Cycle</div>
+          <p class="bento-desc">Générez un cycle complet en secondes — 4 à 16 séances, progressions par thème : transmission, stratégie.</p>
+          <span class="bento-chip">Collège · Lycée</span>
+        </div>
+        <div class="bento-card b4">
+          <div class="bento-num">04</div>
+          <span class="bento-icon">📊</span>
+          <div class="bento-title">Dashboard Classe</div>
+          <p class="bento-desc">Visualisez la performance globale, la distribution des niveaux, la qualité des transmissions et les indicateurs de progression collective de toute la classe.</p>
+          <span class="bento-chip">Dashboard · Stats</span>
+        </div>
+        <div class="bento-card b5">
+          <div class="bento-num">05</div>
+          <span class="bento-icon">🔧</span>
+          <div class="bento-title">Barèmes Configurables</div>
+          <p class="bento-desc">Ajustez les seuils de performance et la qualité de transmission par niveau scolaire. Mise à jour instantanée sur tous les calculs.</p>
+          <span class="bento-chip">1ASC · 2ASC · 3ASC</span>
+        </div>
+        <div class="bento-card b6">
+          <div class="bento-inner">
+            <div class="b6-stat"><span class="b6-num">3</span><div class="b6-lbl">Niveaux scolaires</div></div>
+            <div class="b6-stat"><span class="b6-num">4×</span><div class="b6-lbl">Formats relais</div></div>
+            <div class="b6-stat"><span class="b6-num">12·13·14</span><div class="b6-lbl">Barème officiel</div></div>
+            <div class="b6-stat"><span class="b6-num">CSV</span><div class="b6-lbl">Export intégré</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Why Section -->
+  <div id="why">
+    <section class="why-section">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">Pourquoi APR 2026</div>
+          <h2 class="section-h2">Pensé <em>pour</em><br>les enseignants</h2>
+        </div>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div class="why-icon">⏱️</div>
+          <div class="why-title">Gain de temps considérable</div>
+          <p class="why-text">Générez un projet de cycle Course de Relais en quelques secondes. Finies les heures de préparation manuelle avant chaque cycle.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div class="why-icon">🎯</div>
+          <div class="why-title">Cohérence pédagogique garantie</div>
+          <p class="why-text">Chaque séance progresse logiquement : de la découverte du bâton à la stratégie d'équipe avancée et l'évaluation finale.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <div class="why-icon">🔀</div>
+          <div class="why-title">Personnalisation totale</div>
+          <p class="why-text">Formats piste 4×30m, 4×40m, 4×50m, 4×100m — tout se configure selon votre infrastructure terrain et les besoins de vos élèves.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <div class="why-icon">🇲🇦</div>
+          <div class="why-title">Conforme aux référentiels marocains</div>
+          <p class="why-text">Orientations Pédagogiques 2007/2009, barèmes officiels, compétences disciplinaires et transversales intégralement respectés.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Testimonials -->
+  <div id="testi">
+    <section class="testi-section">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">Retours d'expérience</div>
+          <h2 class="section-h2">Ce que disent<br>les <em>enseignants</em></h2>
+        </div>
+      </div>
+      <div class="testi-rail">
+        <div class="testi-card">
+          <div class="testi-stars">
+            <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+          </div>
+          <p class="testi-text">APR 2026 a transformé mon enseignement du relais. La progression par thème est exactement ce qu'il faut pour structurer un cycle cohérent.</p>
+          <div class="testi-author">
+            <div class="testi-av">KA</div>
+            <div>
+              <div class="testi-name">Karim Alaoui</div>
+              <div class="testi-role">Prof EPS · Collège Ibn Khaldoun, Marrakech</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">
+            <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+          </div>
+          <p class="testi-text">Les conduites typiques du relais m'aident à cibler précisément les difficultés de chaque équipe sur la transmission du bâton. Indispensable.</p>
+          <div class="testi-author">
+            <div class="testi-av">NB</div>
+            <div>
+              <div class="testi-name">Nadia Benali</div>
+              <div class="testi-role">Prof EPS · Lycée Al Khawarizmi, Casablanca</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">
+            <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+          </div>
+          <p class="testi-text">Le calcul automatique des notes adaptées à chaque classe (12/13/14) avec les barèmes officiels est fiable et rapide. Je gagne un temps précieux lors des séances d'évaluation.</p>
+          <div class="testi-author">
+            <div class="testi-av">YM</div>
+            <div>
+              <div class="testi-name">Youssef Mansouri</div>
+              <div class="testi-role">Prof EPS · Collège Moulay Hassan, Rabat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div>
+      <div class="cta-label">Prêt à commencer ?</div>
+      <h2 class="cta-h2">Accédez à la<br>plateforme <em>maintenant</em></h2>
+      <p class="cta-desc">Aucune installation. Aucun compte requis. Accès immédiat à tous les outils pédagogiques Course de Relais.</p>
+      <button class="btn-cta" onclick="openApp()">Accéder à la plateforme <span class="arrow">→</span></button>
+    </div>
+    <div class="cta-features">
+      <div class="cta-feat"><div class="cta-feat-dot"></div>Calcul automatique de la note (12/13/14 selon la classe)</div>
+      <div class="cta-feat"><div class="cta-feat-dot"></div>Conduites typiques par niveau A/B/C</div>
+      <div class="cta-feat"><div class="cta-feat-dot"></div>Génération de cycle en un clic</div>
+      <div class="cta-feat"><div class="cta-feat-dot"></div>Export CSV compatible Excel</div>
+      <div class="cta-feat"><div class="cta-feat-dot"></div>Conforme OP Maroc 2007/2009</div>
+      <div class="cta-feat"><div class="cta-feat-dot"></div>Fonctionne 100% hors ligne</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-logo">APR 2026</div>
+    <div class="footer-meta">
+      Plateforme Intelligente EPS · Maroc · OP 2009<br>
+      Course de Relais · Collège & Lycée
+    </div>
+    <div class="footer-status">
+      <div class="status-dot"></div>
+      Version Beta · Système opérationnel
+    </div>
+  </footer>
+
+</div><!-- /landing-wrap -->
+
+<!-- ═══════════ APP ═══════════ -->
+<div class="app-wrap" id="appWrap">
+
+  <nav class="app-nav">
+    <div>
+      <div class="wordmark">APR 2026</div>
+      <div class="nav-subtitle">Outil d'Aide · Course de Relais · OP 2009</div>
+    </div>
+    <button class="btn-launch" style="font-size:0.85rem;padding:8px 18px" onclick="goLanding()">← Accueil</button>
+  </nav>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('eval',this)">
+      <span class="tab-icon">⚡</span> Évaluation APR
+    </button>
+    <button class="tab-btn" onclick="showTab('conduites',this)">
+      <span class="tab-icon">🧭</span> Conduites Typiques
+    </button>
+    <button class="tab-btn" onclick="showTab('planif',this)">
+      <span class="tab-icon">📋</span> Planification
+    </button>
+  </div>
+
+  <!-- ════ TAB : EVAL ════ -->
+  <div class="tab-content active" id="tab-eval">
+    <div class="eval-layout">
+
+      <!-- Sidebar config -->
+      <div class="config-sidebar">
+
+        <!-- Config -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">⚙ Configuration <span class="panel-badge">1</span></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Niveau / Classe</label>
+            <select class="form-select" id="niveauSelect" onchange="updateBaremeDisplay()">
+              <option value="1ASC">1ère Année Collège (1ASC)</option>
+              <option value="2ASC">2ème Année Collège (2ASC)</option>
+              <option value="3ASC">3ème Année Collège (3ASC)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nombre de coureurs</label>
+            <select class="form-select" id="coureursSelect" onchange="updateRelaisInfo()">
+              <option value="3">3 coureurs</option>
+              <option value="4" selected>4 coureurs</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Distance par relayeur</label>
+            <select class="form-select" id="formatSelect" onchange="updateRelaisInfo()">
+              <option value="30">30 m (piste)</option>
+              <option value="40">40 m (piste)</option>
+              <option value="50" selected>50 m (piste)</option>
+              <option value="100">100 m (piste)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date · Séance N°</label>
+            <div style="display:flex;gap:8px">
+              <input type="date" class="form-input" id="dateSeance" style="flex:2">
+              <input type="number" class="form-input" id="numSeance" value="1" min="1" max="16" style="flex:1">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Établissement</label>
+            <input type="text" class="form-input" id="etab" placeholder="Nom de l'établissement">
+          </div>
+          <div class="relay-info-box" id="relaisInfoBox">
+            <strong>🏃 4 × 50 m :</strong><br>
+            📏 Distance totale : <strong>200 m</strong><br>
+            🔄 4 coureurs par équipe<br>
+            📐 Zone de transmission : <strong>20 m</strong><br>
+            ⚡ Transmission en course modérée — niveau 2
+          </div>
+        </div>
+
+        <!-- Saisie équipe -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">✏️ Saisie Équipe <span class="panel-badge">2</span></div>
+          </div>
+          <div class="essai-grid">
+            <div class="form-group">
+              <label class="form-label">N° Équipe</label>
+              <input type="text" class="form-input" id="numEquipe" placeholder="ex: Éq.1">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nom d'équipe</label>
+              <input type="text" class="form-input" id="nomEquipe" placeholder="ex: Équipe Éclair">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Composition de l'équipe — ordre de passage</label>
+            <div class="runner-grid" id="runnerGrid"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Performance — aide au calcul (temps chronométré, facultatif)</label>
+            <input type="text" class="form-input" id="chronoAide" placeholder="ex: 20.5" oninput="suggererPerformance()">
+            <div class="bareme-note" id="perfAideNote" style="margin-top:6px">Saisissez un temps pour pré-remplir la note Performance ci-dessous à partir du barème.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="perfNoteLabel">Note Performance /6</label>
+            <input type="number" class="form-input" id="performanceNote" step="0.5" min="0" placeholder="ex: 6" oninput="updateNotePreview()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Transmission du témoin — 3 zones</label>
+            <div class="zone-grid" id="zoneGrid"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Note Transmission /6</label>
+            <input type="number" class="form-input" id="transmissionNote" step="0.5" min="0" max="6" placeholder="ex: 6" oninput="updateNotePreview()">
+          </div>
+          <div class="relay-info-box" style="margin:10px 0">
+            NOTE (aperçu) : <strong id="notePreview">—</strong>
+          </div>
+          <button class="btn-add" onclick="ajouterEquipe()">➕ Ajouter l'Équipe</button>
+        </div>
+
+      </div><!-- /config-sidebar -->
+
+      <!-- Main eval area -->
+      <div class="eval-main">
+
+        <!-- Stats -->
+        <div class="panel" style="margin-bottom:16px">
+          <div class="panel-header">
+            <div class="panel-title">📊 Tableau de Bord Classe</div>
+          </div>
+          <div class="stats-row">
+            <div class="stat-card"><span class="num" id="statTotal">0</span><div class="lbl">Équipes</div></div>
+            <div class="stat-card"><span class="num" id="statMoy">—</span><div class="lbl" id="statMoyLabel">Moy. /14</div></div>
+            <div class="stat-card"><span class="num" id="statA">0</span><div class="lbl">Maîtrisé</div></div>
+            <div class="stat-card"><span class="num" id="statB">0</span><div class="lbl">En cours</div></div>
+            <div class="stat-card"><span class="num" id="statC">0</span><div class="lbl">Non maîtrisé</div></div>
+          </div>
+          <div class="bareme-box">
+            <div class="bareme-head" id="baremeHead">📐 Barème — 4×50m (1ASC)</div>
+            <div class="bareme-row" id="baremePerf"><span>Performance (temps) /14</span><strong>paliers de temps exacts — voir tableau ci-dessous</strong></div>
+            <div class="bareme-row"><span>Transmission /6</span><strong>aide : moyenne des zones — Bien=6 · Moyen=4 · Faible=2 (ajustable)</strong></div>
+            <div class="bareme-trans-detail">
+              <div><strong>✅ Bien —</strong> transmission réalisée dans la zone réglementaire, les deux coureurs en mouvement à allure proche de la course, sans ralentissement ni contact perturbateur, témoin tenu fermement.</div>
+              <div><strong>⚡ Moyen —</strong> transmission dans la zone mais avec un ralentissement net d&#8217;un ou des deux coureurs, geste correct mais hésitant, ou légèrement en limite de zone.</div>
+              <div><strong>❌ Faible —</strong> transmission hors zone, réalisée à l&#8217;arrêt alors qu&#8217;elle devrait être en mouvement, témoin manqué/rattrapé au sol, ou désorganisation visible entre les coureurs.</div>
+            </div>
+
+            <div class="bareme-head" style="margin-top:16px" id="baremeDetailHead">📐 Barème Performance /14 — paliers de temps exacts (4×50m · 1ASC)</div>
+            <div class="bareme-note" style="margin-top:-4px;margin-bottom:8px">Saisissez directement, pour la note maximale de chaque palier, le temps limite (en secondes) à ne pas dépasser. Ex. : pour 30 m en 1ère année collège, palier le plus haut = « de 0 à 20s », palier suivant = « de 20 à 22s », etc. Le tableau s&#8217;adapte automatiquement au niveau, à la distance et au nombre de coureurs sélectionnés ci-dessus — chaque combinaison garde son propre barème. Il sert à pré-remplir la note Performance dans le formulaire de saisie ; vous pouvez toujours l&#8217;ajuster à la main.</div>
+            <table class="bareme-edit-table">
+              <thead>
+                <tr>
+                  <th>Pts</th>
+                  <th>Temps min</th>
+                  <th>Temps max (s)</th>
+                </tr>
+              </thead>
+              <tbody id="baremeDetailBody">
+              </tbody>
+            </table>
+            <div class="bareme-note" id="baremeFormulaNote">Note finale = Performance (/14) + Transmission (/6), soit /20.</div>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <button class="btn-sm green" style="flex:1" onclick="genererBaremeParDefaut()">✨ Générer un barème par défaut</button>
+              <button class="btn-sm" style="flex:1" onclick="resetBaremeCustom()">↺ Effacer ce barème</button>
+            </div>
+            <div class="bareme-note" style="margin-top:8px">Ce barème est propre à la combinaison <strong id="editFormatLabel">1ASC · 4×50m</strong> affichée actuellement. Changez de niveau, de distance ou de nombre de coureurs dans la Configuration pour définir (ou éditer) un barème différent pour chaque cas — chacun est mémorisé séparément.</div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">📋 Liste des Équipes <span class="panel-badge" id="compteurEquipes">0</span></div>
+          </div>
+          <div class="action-row">
+            <button class="btn-sm green" onclick="calculerTous()">⚡ Calculer</button>
+            <button class="btn-sm" onclick="document.getElementById('importCsvInput').click()">📂 Importer CSV</button>
+            <input type="file" id="importCsvInput" accept=".csv" style="display:none" onchange="importCSV(event)">
+            <button class="btn-sm" onclick="exportCSV()">📤 Export CSV</button>
+            <button class="btn-sm" onclick="telechargerModeleCSV()">📄 Modèle CSV (grille)</button>
+            <button class="btn-sm" onclick="imprimerTableau()">🖨️ Imprimer</button>
+            <button class="btn-sm danger" onclick="effacerTout()">🗑 Effacer</button>
+          </div>
+          <div class="bareme-note" style="margin:-6px 0 12px">
+            💡 Le CSV importé peut contenir soit une colonne <strong>Temps</strong> (chrono en secondes) — la note Performance est alors calculée automatiquement à partir du barème et de la classe (1AC/2AC/3AC) actuellement sélectionnés en haut de page — soit une colonne <strong>Performance</strong> déjà notée. Pensez à choisir la bonne classe et le bon format avant d'importer.
+          </div>
+          <div class="table-wrap">
+            <table id="tableEquipes">
+              <thead>
+                <tr>
+                  <th>N° Éq.</th>
+                  <th>Nom d'équipe</th>
+                  <th>Coureurs</th>
+                  <th id="thPerf">Performance /14</th>
+                  <th>Zones</th>
+                  <th>Transmission /6</th>
+                  <th id="thNote">NOTE /20</th>
+                  <th>Appréciation</th>
+                  <th>—</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <tr>
+                  <td colspan="9" class="empty-state">
+                    <span class="e-icon">🏃</span>
+                    Aucune équipe enregistrée. Commencez par ajouter des équipes ci-dessus.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /eval-main -->
+    </div>
+  </div><!-- /tab-eval -->
+
+  <!-- ════ TAB : CONDUITES ════ -->
+  <div class="tab-content" id="tab-conduites">
+    <div class="conduites-wrap">
+      <div style="margin-bottom:20px">
+        <div class="section-eyebrow" style="margin-bottom:10px">Conduites Typiques</div>
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.3px;margin-bottom:12px">Course de Relais — OP 2009</h2>
+        <div class="alert-bar">Cette rubrique présente les <strong>conduites typiques</strong> observées en Course de Relais au collège et lycée, classées par niveau. Elle couvre les domaines <strong>moteur, tactique, méthodologique et social</strong>, en cohérence avec les Orientations Pédagogiques marocaines 2007/2009.</div>
+      </div>
+
+      <div class="niveau-tabs">
+        <button class="niv-btn debutant active" onclick="showNiveau('debutant',this)">🔴 Débutant (≤10)</button>
+        <button class="niv-btn intermediaire" onclick="showNiveau('intermediaire',this)">🟡 Intermédiaire (11–16)</button>
+        <button class="niv-btn avance" onclick="showNiveau('avance',this)">🟢 Avancé (>16)</button>
+      </div>
+
+      <!-- DEBUTANT -->
+      <div class="niveau-content" id="niv-debutant" style="display:block">
+        <div class="niveau-label red">
+          <strong>Niveau Débutant — Note ≤ 10/20</strong> · Profil observé en début de cycle ou chez les élèves sans expérience du relais
+        </div>
+        <div class="conduites-grid">
+          <div class="cond-card">
+            <div class="cond-title">🏃 Domaine Moteur</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Départ trop tôt ou trop tard du receveur</li>
+                <li>Arrêt complet lors de la transmission</li>
+                <li>Vitesse mal gérée à l'approche de la zone</li>
+                <li>Chute ou lâcher du bâton</li>
+                <li>Course irrégulière entre les zones</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Besoins d'apprentissage</div>
+              <ul class="cond-list">
+                <li>Courir à allure constante sur son couloir</li>
+                <li>Maîtriser la prise et le lâcher du bâton à l'arrêt</li>
+                <li>Comprendre le rôle de chaque coureur</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">♟️ Domaine Tactique</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Pas de stratégie d'équipe définie</li>
+                <li>Coureurs placés au hasard</li>
+                <li>Aucune exploitation de la zone de transmission</li>
+                <li>Réaction aux autres équipes plutôt qu'à son plan</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Besoins d'apprentissage</div>
+              <ul class="cond-list">
+                <li>Choisir l'ordre des coureurs selon leurs capacités</li>
+                <li>Définir un signal de départ convenu</li>
+                <li>Comprendre l'avantage de la zone de 20 m</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">📐 Domaine Méthodologique</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Ne connaît pas les règles du relais</li>
+                <li>Ignore la zone de transmission réglementaire</li>
+                <li>N'utilise pas de signal vocal ou tactile</li>
+                <li>Ne peut pas analyser les erreurs de l'équipe</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Besoins d'apprentissage</div>
+              <ul class="cond-list">
+                <li>Mémoriser les règles essentielles du relais</li>
+                <li>Repérer visuellement les zones de transmission</li>
+                <li>Analyser une course grâce à des fiches d'observation</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">🤝 Domaine Social</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Peu de communication entre les coureurs</li>
+                <li>Conflits lors du choix de l'ordre de passage</li>
+                <li>Refus du rôle d'observateur ou de juge</li>
+                <li>Démotivation après une erreur de transmission</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Besoins d'apprentissage</div>
+              <ul class="cond-list">
+                <li>Accepter et assumer les rôles sociaux</li>
+                <li>Soutenir les partenaires après une erreur</li>
+                <li>Co-construire la stratégie d'équipe</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="synthese-box">
+          <div class="synthese-title">🎯 Synthèse des Besoins — Niveau Débutant</div>
+          <div class="synthese-grid">
+            <div class="syn-item"><div class="syn-item-title">🏃 Moteur</div><ul><li>Maîtriser la prise/lâcher à l'arrêt</li><li>Courir dans son couloir</li><li>Gérer l'approche de la zone</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">♟️ Tactique</div><ul><li>Définir un ordre simple</li><li>Convenir d'un signal</li><li>Exploiter la zone 20m</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">📐 Méthodo</div><ul><li>Apprendre les règles</li><li>Utiliser des fiches</li><li>Identifier les erreurs</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">🤝 Social</div><ul><li>Jouer les rôles définis</li><li>Soutenir les partenaires</li><li>Décider collectivement</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERMEDIAIRE -->
+      <div class="niveau-content" id="niv-intermediaire">
+        <div class="niveau-label amber">
+          <strong>Niveau Intermédiaire — Note 11–16/20</strong> · Profil observé en milieu de cycle, acquis partiels
+        </div>
+        <div class="conduites-grid">
+          <div class="cond-card">
+            <div class="cond-title">🏃 Domaine Moteur</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Transmission réalisée mais avec ralentissement</li>
+                <li>Démarrage du receveur encore hésitant</li>
+                <li>Bâton transmis en dehors de la zone parfois</li>
+                <li>Allure irrégulière sur le dernier segment</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Besoins d'apprentissage</div>
+              <ul class="cond-list">
+                <li>Transmettre en course sans ralentir</li>
+                <li>Anticiper le signal de départ du receveur</li>
+                <li>Maintenir l'allure maximale sur tout le segment</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">♟️ Domaine Tactique</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Ordre des coureurs choisi, parfois non optimal</li>
+                <li>Signal verbal utilisé mais peu efficace</li>
+                <li>Début d'exploitation de la zone de vitesse</li>
+                <li>Pas d'adaptation de la stratégie en cours de course</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Besoins d'apprentissage</div>
+              <ul class="cond-list">
+                <li>Optimiser l'ordre selon la vitesse de chaque coureur</li>
+                <li>Choisir un signal fiable (vocal + position)</li>
+                <li>Préparer une stratégie de rattrapage si erreur</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">📐 Domaine Méthodologique</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Connaît les règles principales</li>
+                <li>Utilise la fiche partiellement</li>
+                <li>Identifie les erreurs mais peine à les corriger</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Besoins d'apprentissage</div>
+              <ul class="cond-list">
+                <li>Analyser systématiquement chaque transmission</li>
+                <li>Fixer des objectifs précis pour la séance suivante</li>
+                <li>Comprendre les indicateurs du barème officiel</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">🤝 Domaine Social</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Communication intra-équipe fonctionnelle</li>
+                <li>Rôle d'observateur accepté mais peu précis</li>
+                <li>Encouragements présents mais irréguliers</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Besoins d'apprentissage</div>
+              <ul class="cond-list">
+                <li>Affiner l'observation et le retour qualitatif</li>
+                <li>Prendre des décisions collectives en temps limité</li>
+                <li>Contribuer à l'évaluation formative des pairs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="synthese-box">
+          <div class="synthese-title">🎯 Synthèse des Besoins — Niveau Intermédiaire</div>
+          <div class="synthese-grid">
+            <div class="syn-item"><div class="syn-item-title">🏃 Moteur</div><ul><li>Transmettre en course</li><li>Anticiper le signal</li><li>Maintenir l'allure max</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">♟️ Tactique</div><ul><li>Ordre optimal des coureurs</li><li>Signal fiable</li><li>Stratégie de rattrapage</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">📐 Méthodo</div><ul><li>Analyse complète</li><li>Objectifs précis</li><li>Comprendre le barème</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">🤝 Social</div><ul><li>Retour qualitatif précis</li><li>Décision collective rapide</li><li>Évaluation formative</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AVANCE -->
+      <div class="niveau-content" id="niv-avance">
+        <div class="niveau-label green">
+          <strong>Niveau Avancé — Note > 16/20</strong> · Profil expert, maîtrise confirmée de l'activité
+        </div>
+        <div class="conduites-grid">
+          <div class="cond-card">
+            <div class="cond-title">🏃 Domaine Moteur</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Transmission fluide en pleine vitesse</li>
+                <li>Receveur part au bon moment systématiquement</li>
+                <li>Bâton toujours dans la zone réglementaire</li>
+                <li>Allure maximale maintenue sur tout le segment</li>
+                <li>Économie gestuelle visible</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Axes de dépassement</div>
+              <ul class="cond-list">
+                <li>Maîtriser la transmission aveugle</li>
+                <li>Travailler la relance explosive à la sortie de zone</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">♟️ Domaine Tactique</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Stratégie d'équipe précise et adaptable</li>
+                <li>Ordre des coureurs optimisé (fort en 2 et 4)</li>
+                <li>Gestion du virage pour minimiser la distance</li>
+                <li>Anticipation des erreurs possibles</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Axes de dépassement</div>
+              <ul class="cond-list">
+                <li>Construire une stratégie de relais compétitive complète</li>
+                <li>Analyser les stratégies adverses</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">📐 Domaine Méthodologique</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Analyse complète et autonome après chaque course</li>
+                <li>Fixe des objectifs précis et progressifs</li>
+                <li>Utilise les données pour planifier les séances</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Axes de dépassement</div>
+              <ul class="cond-list">
+                <li>Construire un carnet d'équipe sur le cycle</li>
+                <li>Co-concevoir une fiche d'observation pour les pairs</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cond-card">
+            <div class="cond-title">🤝 Domaine Social</div>
+            <div class="cond-section"><div class="cond-section-head">Conduites observées</div>
+              <ul class="cond-list">
+                <li>Leader pédagogique de l'équipe</li>
+                <li>Observateur précis et constructif</li>
+                <li>Fait respecter les règles</li>
+                <li>Moteur du groupe-classe</li>
+              </ul>
+            </div>
+            <div class="cond-section"><div class="cond-section-head">Axes de dépassement</div>
+              <ul class="cond-list">
+                <li>Assumer le rôle de tuteur d'une équipe débutante</li>
+                <li>Co-animer une séquence de relais</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="synthese-box">
+          <div class="synthese-title">🎯 Synthèse des Besoins — Niveau Avancé</div>
+          <div class="synthese-grid">
+            <div class="syn-item"><div class="syn-item-title">🏃 Moteur</div><ul><li>Transmission aveugle</li><li>Relance explosive</li><li>Endurance vitesse</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">♟️ Tactique</div><ul><li>Stratégie compétitive</li><li>Analyse adverses</li><li>Gestion du virage</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">📐 Méthodo</div><ul><li>Carnet d'équipe</li><li>Planification autonome</li><li>Fiche observation pairs</li></ul></div>
+            <div class="syn-item"><div class="syn-item-title">🤝 Social</div><ul><li>Tuteur équipe débutante</li><li>Co-animation séquence</li><li>Évaluation formative</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /tab-conduites -->
+
+  <!-- ════ TAB : PLANIFICATION ════ -->
+  <div class="tab-content" id="tab-planif">
+    <div class="plan-wrap">
+      <div class="section-eyebrow" style="margin-bottom:10px">Planification Pédagogique</div>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.3px;margin-bottom:22px">Planification du Cycle — Course de Relais</h2>
+
+      <div class="plan-config">
+        <div class="panel-title" style="margin-bottom:16px">⚙ Paramètres du Cycle</div>
+        <div class="config-grid">
+          <div class="form-group">
+            <label class="form-label">Niveau du cycle</label>
+            <select class="form-select" id="planNiveau">
+              <option value="N1">Niveau 1 — Découverte (1ASC)</option>
+              <option value="N2" selected>Niveau 2 — Consolidation (2ASC)</option>
+              <option value="N3">Niveau 3 — Perfectionnement (3ASC)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nombre de coureurs</label>
+            <select class="form-select" id="planCoureurs">
+              <option value="3">3 coureurs</option>
+              <option value="4" selected>4 coureurs</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Distance par relayeur</label>
+            <select class="form-select" id="planFormat">
+              <option>30 m (piste)</option>
+              <option>40 m (piste)</option>
+              <option selected>50 m (piste)</option>
+              <option>100 m (piste)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nombre de séances</label>
+            <select class="form-select" id="planSeances">
+              <option value="6">6 séances</option>
+              <option value="8">8 séances</option>
+              <option value="10">10 séances</option>
+              <option value="12" selected>12 séances</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Durée séance</label>
+            <select class="form-select" id="planDuree">
+              <option>45 min</option>
+              <option selected>55 min</option>
+              <option>60 min</option>
+              <option>90 min</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-gen" onclick="genererCycle()">🔄 Générer le Cycle</button>
+      </div>
+
+      <div id="cycleOutput" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;letter-spacing:0.3px" id="cycleTitle"></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text3);margin-top:4px" id="cycleSubtitle"></div>
+          </div>
+          <button class="btn-sm green" onclick="exportCyclePlan()">📥 Exporter CSV</button>
+        </div>
+
+        <div class="niveau-summary" id="niveauSummary"></div>
+
+        <div class="repartition-bar" id="repartitionBar"></div>
+        <div class="repartition-legend" id="repartitionLegend"></div>
+
+        <div class="seances-grid" id="seancesGrid"></div>
+      </div>
+    </div>
+  </div><!-- /tab-planif -->
+
+</div><!-- /app-wrap -->
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script>
+// ═══════ GLOBALS ═══════
+let equipes = [];
+
+// ═══════ NAV ═══════
+function openApp() {
+  document.getElementById('landingWrap').classList.add('hide');
+  document.getElementById('appWrap').classList.add('show');
+  window.scrollTo(0,0);
+}
+function goLanding() {
+  document.getElementById('appWrap').classList.remove('show');
+  document.getElementById('landingWrap').classList.remove('hide');
+  window.scrollTo(0,0);
+}
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+// ═══════ TABS ═══════
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ═══════ RELAIS INFO ═══════
+const DIST_INFO = {
+  '30': { zone: 10, niveau: 'niveau 1', transmission: 'Transmission à l&#8217;arrêt ou en marche' },
+  '40': { zone: 15, niveau: 'niveau 1/2', transmission: 'Transmission en trottinement' },
+  '50': { zone: 20, niveau: 'niveau 2', transmission: 'Transmission en course modérée' },
+  '100': { zone: 20, niveau: 'niveau 3', transmission: 'Transmission aveugle à vitesse maximale' }
+};
+function updateRelaisInfo() {
+  const dist = document.getElementById('formatSelect').value;
+  const nbCoureurs = document.getElementById('coureursSelect').value;
+  const info = DIST_INFO[dist];
+  const totale = parseInt(dist) * parseInt(nbCoureurs);
+  document.getElementById('relaisInfoBox').innerHTML =
+    `<strong>🏃 ${nbCoureurs} × ${dist} m :</strong><br>` +
+    `📏 Distance totale : <strong>${totale} m</strong><br>` +
+    `🔄 ${nbCoureurs} coureurs par équipe<br>` +
+    `📐 Zone de transmission : <strong>${info.zone} m</strong><br>` +
+    `⚡ ${info.transmission} — ${info.niveau}`;
+  renderSaisieFields();
+  updateBaremeDisplay();
+}
+
+// ═══════ NIVEAU / NOTE PROCÉDURALE — barème adapté au niveau scolaire ═══════
+// 1AC : note procédurale /6 · 2AC : /7 · 3AC : /8
+// La note finale = Performance (variable) + Transmission(/6),
+// sur un total qui s'ajuste donc à 12 (1AC), 13 (2AC) ou 14 (3AC).
+const NIVEAU_PERF_MAX = { '1ASC': 6, '2ASC': 7, '3ASC': 8 };
+function getPerfMax(niveauKey) {
+  return NIVEAU_PERF_MAX[niveauKey] || 8;
+}
+function getNiveauActif() {
+  const el = document.getElementById('niveauSelect');
+  return el ? el.value : '3ASC';
+}
+function getDistanceTotale() {
+  const dist = parseInt(document.getElementById('formatSelect').value) || 50;
+  const nb = parseInt(document.getElementById('coureursSelect').value) || 4;
+  return dist * nb;
+}
+function getNbCoureurs() {
+  return parseInt(document.getElementById('coureursSelect').value) || 4;
+}
+function formatSec(sec) {
+  if (sec === Infinity) return '∞';
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  const sTxt = Number.isInteger(s) ? s : s.toFixed(1);
+  return m > 0 ? `${m}:${String(sTxt).padStart(4,'0')}` : `${sTxt}s`;
+}
+
+// ═══════ BARÈME PERFORMANCE — paliers de temps EXACTS, éditables ═══════
+// Chaque combinaison (niveau × nb coureurs × distance) mémorise son propre barème :
+// pour chaque note de M (max) à 2, l'enseignant saisit le temps limite (en secondes)
+// à ne pas dépasser pour obtenir cette note. Le tableau s'adapte donc à toutes les
+// distances et tous les niveaux, sans formule imposée — 100% personnalisable.
+let baremeTablesCustom = {}; // clé "niveau_nbxdist" -> [{n, tmax}] trié du plus de points au moins
+const BAREME_REF_VITESSE = { v14: 6.0, v8: 3.0, v2: 0.5 }; // sert uniquement à générer une proposition par défaut
+
+function bandKey() {
+  const niveau = getNiveauActif();
+  const nb = getNbCoureurs();
+  const dist = document.getElementById('formatSelect').value;
+  return `${niveau}_${nb}x${dist}`;
+}
+function defaultBands(M, distanceTotale) {
+  const { v14, v8, v2 } = BAREME_REF_VITESSE;
+  const pivot = Math.max(3, Math.round(M / 2));
+  const points = [];
+  for (let n = M; n >= 2; n--) points.push(n);
+  return points.map(n => {
+    let vmin;
+    if (n >= pivot) {
+      const t = (M === pivot) ? 1 : (n - pivot) / (M - pivot);
+      vmin = v8 + t * (v14 - v8);
+    } else {
+      const t = (n - 2) / (pivot - 2);
+      vmin = v2 + t * (v8 - v2);
+    }
+    const tmax = n === 2 ? Infinity : +(distanceTotale / vmin).toFixed(2);
+    return { n, tmax };
+  });
+}
+function getBands() {
+  const key = bandKey();
+  if (baremeTablesCustom[key]) return baremeTablesCustom[key];
+  const M = getPerfMax(getNiveauActif());
+  return defaultBands(M, getDistanceTotale());
+}
+function setBands(bands) {
+  baremeTablesCustom[bandKey()] = bands;
+}
+function genererBaremeParDefaut() {
+  const M = getPerfMax(getNiveauActif());
+  setBands(defaultBands(M, getDistanceTotale()));
+  updateBaremeDisplay();
+}
+function resetBaremeCustom() {
+  delete baremeTablesCustom[bandKey()];
+  updateBaremeDisplay();
+}
+function onBandInputChange(n, value) {
+  const M = getPerfMax(getNiveauActif());
+  const bands = getBands().map(b => ({ ...b }));
+  const v = parseFloat(String(value).replace(',', '.'));
+  const row = bands.find(b => b.n === n);
+  if (!row) return;
+  if (n === 2) { row.tmax = Infinity; } // dernier palier toujours ouvert
+  else if (!isNaN(v) && v > 0) { row.tmax = v; }
+  setBands(bands);
+  updateBaremeDisplay();
+}
+function perfFromTemps(tempsRaw, bands) {
+  for (const b of bands) { if (tempsRaw <= b.tmax) return b.n; }
+  return bands[bands.length - 1].n;
+}
+function updateBaremeDisplay() {
+  const dist = parseInt(document.getElementById('formatSelect').value) || 50;
+  const nb = getNbCoureurs();
+  const niveauTxt = getNiveauActif();
+  const M = getPerfMax(niveauTxt);
+  const totalMax = M + 6;
+  const isCustom = !!baremeTablesCustom[bandKey()];
+
+  document.getElementById('editFormatLabel').textContent = `${niveauTxt} · ${nb}×${dist}m`;
+  document.getElementById('baremePerf').innerHTML =
+    `<span>Performance (temps) /${M}</span><strong>paliers de temps exacts — voir tableau ci-dessous</strong>`;
+  document.getElementById('baremeHead').innerHTML =
+    `📐 Barème — ${nb}×${dist}m (${niveauTxt}) · Performance /${M}` + (isCustom ? ' <span style="color:var(--lime);font-size:0.6rem">· personnalisé</span>' : ' <span style="color:var(--text3);font-size:0.6rem">· proposition par défaut</span>');
+  document.getElementById('baremeDetailHead').textContent = `📐 Barème Performance /${M} — paliers de temps exacts (${nb}×${dist}m · ${niveauTxt})`;
+  document.getElementById('baremeFormulaNote').innerHTML =
+    `Note finale = Performance (/${M}) + Transmission (/6), soit /${totalMax}.`;
+
+  const thPerf = document.getElementById('thPerf');
+  const thNote = document.getElementById('thNote');
+  if (thPerf) thPerf.textContent = `Performance /${M}`;
+  if (thNote) thNote.textContent = `NOTE /${totalMax}`;
+  const statMoyLabel = document.getElementById('statMoyLabel');
+  if (statMoyLabel) statMoyLabel.textContent = `Moy. /${totalMax}`;
+  const perfNoteLabel = document.getElementById('perfNoteLabel');
+  if (perfNoteLabel) perfNoteLabel.textContent = `Note Performance /${M}`;
+
+  const bands = getBands();
+  const tbody = document.getElementById('baremeDetailBody');
+  if (tbody) {
+    tbody.innerHTML = bands.map((b, idx) => {
+      const tmin = idx === 0 ? 0 : bands[idx - 1].tmax;
+      const minTxt = formatSec(tmin);
+      const maxInput = b.n === 2
+        ? '<span style="color:var(--text3)">au-delà</span>'
+        : `<input type="number" step="0.1" min="0.1" value="${b.tmax}" onchange="onBandInputChange(${b.n}, this.value)">`;
+      return `<tr><td>${b.n}</td><td>${minTxt}</td><td>${maxInput}</td></tr>`;
+    }).join('');
+  }
+  suggererPerformance();
+}
+
+// ═══════ EVAL FORM — coureurs / zones dynamiques ═══════
+const ZONE_SCORES = { bien: 6, moyen: 4, faible: 2 };
+function renderSaisieFields() {
+  const nb = getNbCoureurs();
+  const runnerGrid = document.getElementById('runnerGrid');
+  if (runnerGrid) {
+    runnerGrid.innerHTML = Array.from({ length: nb }).map((_, i) => {
+      const label = i === 0 ? `Coureur 1 (Départ)` : (i === nb - 1 ? `Coureur ${i+1} (Arrivée)` : `Coureur ${i+1}`);
+      return `<div><span class="mini-label">${label}</span>
+      <input type="text" class="form-input" id="coureur${i+1}" placeholder="Nom coureur ${i+1}"></div>`;
+    }).join('');
+  }
+  const zoneGrid = document.getElementById('zoneGrid');
+  if (zoneGrid) {
+    const nbZones = nb - 1;
+    zoneGrid.innerHTML = Array.from({ length: nbZones }).map((_, i) => `
+      <div class="zone-row">
+        <span class="zone-label">Zone ${i+1}</span>
+        <select class="form-select" id="zone${i+1}" onchange="suggererTransmission()">
+          <option value="bien">✅ Bien</option>
+          <option value="moyen">⚡ Moyen</option>
+          <option value="faible">❌ Faible</option>
+        </select>
+      </div>
+    `).join('');
+  }
+  suggererTransmission();
+}
+function parseTempsExact(str) {
+  if (!str) return null;
+  str = str.trim().replace(',', '.');
+  if (!str) return null;
+  const parts = str.split(':');
+  if (parts.length === 2) return parseInt(parts[0]) * 60 + parseFloat(parts[1]);
+  const v = parseFloat(str);
+  return isNaN(v) ? null : v;
+}
+// Aide à la saisie : pré-remplit la note Performance à partir du chrono (barème de temps exacts)
+function suggererPerformance() {
+  const chronoEl = document.getElementById('chronoAide');
+  const noteEl = document.getElementById('performanceNote');
+  const infoEl = document.getElementById('perfAideNote');
+  if (!chronoEl || !noteEl) return;
+  const M = getPerfMax(getNiveauActif());
+  const t = parseTempsExact(chronoEl.value);
+  if (t === null) {
+    if (infoEl) infoEl.textContent = `Saisissez un temps pour pré-remplir la note Performance ci-dessous à partir du barème (/${M}).`;
+    return;
+  }
+  const bands = getBands();
+  const suggestion = perfFromTemps(t, bands);
+  noteEl.value = suggestion;
+  if (infoEl) infoEl.textContent = `Suggestion du barème pour ${t}s : ${suggestion}/${M} (modifiable ci-dessous).`;
+  updateNotePreview();
+}
+// Aide à la saisie : pré-remplit la note Transmission à partir des 3 zones
+function suggererTransmission() {
+  const nb = getNbCoureurs();
+  const nbZones = nb - 1;
+  const noteEl = document.getElementById('transmissionNote');
+  if (!noteEl) return;
+  const zoneEls = Array.from({ length: nbZones }).map((_, i) => document.getElementById(`zone${i+1}`)).filter(Boolean);
+  if (zoneEls.length !== nbZones) return;
+  const zones = zoneEls.map(el => el.value);
+  const transNote = +(zones.reduce((a,z) => a + (ZONE_SCORES[z] || 4), 0) / zones.length).toFixed(2);
+  noteEl.value = transNote;
+  updateNotePreview();
+}
+function updateNotePreview() {
+  const perf = parseFloat(document.getElementById('performanceNote').value);
+  const trans = parseFloat(document.getElementById('transmissionNote').value);
+  const M = getPerfMax(getNiveauActif());
+  const totalMax = M + 6;
+  const el = document.getElementById('notePreview');
+  if (!el) return;
+  if (isNaN(perf) && isNaN(trans)) { el.textContent = '—'; return; }
+  const note = (isNaN(perf) ? 0 : perf) + (isNaN(trans) ? 0 : trans);
+  el.textContent = `${note.toFixed(2)} / ${totalMax}`;
+}
+function appreciationFromRatio(ratio) {
+  if (ratio > 0.8) return { label: 'Maîtrisé', cls: 'a' };
+  if (ratio >= 0.55) return { label: 'En cours', cls: 'b' };
+  return { label: 'Non maîtrisé', cls: 'c' };
+}
+function ajouterEquipe() {
+  const numEq = document.getElementById('numEquipe').value.trim();
+  const nom = document.getElementById('nomEquipe').value.trim();
+  const nb = getNbCoureurs();
+  const coureurs = Array.from({ length: nb }).map((_, i) => document.getElementById(`coureur${i+1}`).value.trim());
+  const nbZones = nb - 1;
+  const zones = Array.from({ length: nbZones }).map((_, i) => document.getElementById(`zone${i+1}`).value);
+
+  const niveauScolaire = getNiveauActif();
+  const M = getPerfMax(niveauScolaire);
+  const totalMax = M + 6;
+
+  const perf = parseFloat(document.getElementById('performanceNote').value);
+  const trans = parseFloat(document.getElementById('transmissionNote').value);
+  if (!numEq) { alert('Veuillez saisir le N° d\'équipe.'); return; }
+  if (isNaN(perf)) { alert('Veuillez saisir (ou générer via le chrono) la note Performance.'); return; }
+  if (isNaN(trans)) { alert('Veuillez saisir (ou générer via les zones) la note Transmission.'); return; }
+
+  let note = perf + trans;
+  note = Math.max(0, Math.min(totalMax, +note.toFixed(2)));
+  const appr = appreciationFromRatio(note / totalMax);
+
+  equipes.push({
+    numEq, nom, coureurs, zones,
+    perf, perfMax: M, trans, transMax: 6, graded: true,
+    note, totalMax, appreciation: appr.label, apprCls: appr.cls,
+    niveauScolaire, format: `${nb}×${document.getElementById('formatSelect').value}m`
+  });
+
+  renderTable(); updateStats();
+  document.getElementById('numEquipe').value = '';
+  document.getElementById('nomEquipe').value = '';
+  Array.from({ length: nb }).forEach((_, i) => document.getElementById(`coureur${i+1}`).value = '');
+  document.getElementById('chronoAide').value = '';
+  document.getElementById('performanceNote').value = '';
+  document.getElementById('transmissionNote').value = '';
+  suggererTransmission();
+  updateNotePreview();
+}
+function zoneChip(z) {
+  const lbl = { bien: '✅', moyen: '⚡', faible: '❌' }[z] || (z || '—');
+  const cls = ['bien','moyen','faible'].includes(z) ? z : '';
+  return cls ? `<span class="zone-chip ${cls}">${lbl}</span>` : `<span class="zone-chip">${lbl}</span>`;
+}
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  document.getElementById('compteurEquipes').textContent = equipes.length;
+  if (!equipes.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="empty-state"><span class="e-icon">🏃</span>Aucune équipe enregistrée. Commencez par ajouter des équipes ci-dessus.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = equipes.map((e,i) => `
+    <tr>
+      <td><strong>${e.numEq}</strong></td>
+      <td>${e.nom || '—'}</td>
+      <td class="runners-cell">${e.coureurs.filter(c=>c).map((c,idx)=>`<strong>${idx+1}.</strong> ${c}`).join('<br>') || '—'}</td>
+      <td>${e.graded ? `${e.perf}/${e.perfMax}` : '<span style="color:var(--text3)">à noter</span>'}</td>
+      <td>${e.zones.map(zoneChip).join('')}</td>
+      <td>${e.graded ? `${e.trans}/${e.transMax}` : '<span style="color:var(--text3)">à noter</span>'}</td>
+      <td>${e.graded ? `<span class="note-display">${e.note}</span>/${e.totalMax}` : '<span style="color:var(--text3)">—</span>'}</td>
+      <td>${e.apprCls ? `<span class="badge-level ${e.apprCls}">${e.appreciation}</span>` : `<span style="color:var(--text3)">${e.appreciation}</span>`}</td>
+      <td><button class="btn-sm danger" onclick="supprimerEquipe(${i})">🗑</button></td>
+    </tr>
+  `).join('');
+}
+function supprimerEquipe(i) { equipes.splice(i,1); renderTable(); updateStats(); }
+function updateStats() {
+  const n = equipes.length;
+  document.getElementById('statTotal').textContent = n;
+  const gradedTeams = equipes.filter(e => e.graded);
+  if (!gradedTeams.length) {
+    document.getElementById('statMoy').textContent = '—';
+    ['statA','statB','statC'].forEach(id => document.getElementById(id).textContent = '0');
+    return;
+  }
+  const moy = (gradedTeams.reduce((a,e)=>a+e.note,0)/gradedTeams.length).toFixed(1);
+  document.getElementById('statMoy').textContent = moy;
+  document.getElementById('statA').textContent = gradedTeams.filter(e=>e.apprCls==='a').length;
+  document.getElementById('statB').textContent = gradedTeams.filter(e=>e.apprCls==='b').length;
+  document.getElementById('statC').textContent = gradedTeams.filter(e=>e.apprCls==='c').length;
+}
+function calculerTous() { renderTable(); updateStats(); }
+function effacerTout() { if(confirm('Effacer toutes les équipes ?')) { equipes=[]; renderTable(); updateStats(); } }
+const CSV_HEADER = ["N° Éq.","Nom d'équipe","Coureur 1","Coureur 2","Coureur 3","Coureur 4","Performance","Zone 1","Zone 2","Zone 3","Transmission","NOTE"];
+function csvEsc(s) { return `"${String(s ?? '').replace(/"/g,'""')}"`; }
+function zoneToEmoji(z) { return { bien: '✅', moyen: '⚡', faible: '❌' }[z] || ''; }
+function exportCSV() {
+  if (!equipes.length) { alert('Aucune équipe à exporter.'); return; }
+  let csv = CSV_HEADER.map(csvEsc).join(',') + '\n';
+  equipes.forEach(e => {
+    const c = e.coureurs.concat(['','','','']).slice(0,4); // toujours 4 colonnes, même si 3 coureurs
+    csv += [
+      csvEsc(e.numEq), csvEsc(e.nom||''), csvEsc(c[0]), csvEsc(c[1]), csvEsc(c[2]), csvEsc(c[3]),
+      e.perf ?? '', zoneToEmoji(e.zones[0]), zoneToEmoji(e.zones[1]), zoneToEmoji(e.zones[2]||''), e.trans ?? '', e.note ?? ''
+    ].join(',') + '\n';
+  });
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = 'course-relais-evaluation.csv'; a.click();
+}
+const CSV_TEMPLATE_HEADER = ["N° Éq.","Nom d'équipe","Coureur 1","Coureur 2","Coureur 3","Coureur 4","Temps (chrono, en secondes)","Zone 1","Zone 2","Zone 3"];
+function telechargerModeleCSV() {
+  const nb = getNbCoureurs();
+  let csv = CSV_TEMPLATE_HEADER.map(csvEsc).join(',') + '\n';
+  for (let i = 1; i <= 7; i++) {
+    const row = [`Éq.${i}`, '', '', '', '', '', '', '', '', ''];
+    csv += row.map(csvEsc).join(',') + '\n';
+  }
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = 'modele-grille-relais.csv'; a.click();
+}
+
+// ═══════ IMPORT CSV — lecture robuste (RFC4180 : gère guillemets, virgules et retours à la ligne dans les champs) ═══════
+// Reconnaît la grille exportée par le site ET un CSV exporté depuis Excel/Sheets à partir de la grille officielle
+// (en-têtes flexibles, reconnus par mot-clé plutôt que par position exacte).
+function parseCSVFull(text) {
+  const rows = []; let row = []; let field = ''; let inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"') { if (text[i+1] === '"') { field += '"'; i++; } else inQ = false; }
+      else field += c;
+    } else {
+      if (c === '"') inQ = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\r') { /* ignoré */ }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else field += c;
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows.map(r => r.map(f => f.trim())).filter(r => r.some(f => f !== ''));
+}
+function zoneFromCell(v) {
+  v = (v || '').trim().toLowerCase();
+  if (v.includes('✅') || v.includes('bien') || v === 'b') return 'bien';
+  if (v.includes('⚡') || v.includes('moyen') || v === 'm') return 'moyen';
+  if (v.includes('❌') || v.includes('faible') || v === 'f') return 'faible';
+  return 'bien';
+}
+function stripAccents(s) {
+  return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+// Recherche un mot-clé dans les N premières lignes (bloc d'en-tête), en ignorant les cellules
+// trop longues (phrases descriptives) pour éviter les faux positifs. Retourne {row, col} ou null.
+function findHeaderCell(rows, keyword, maxLen, headerZone) {
+  for (let r = 0; r < headerZone; r++) {
+    if (!rows[r]) continue;
+    for (let c = 0; c < rows[r].length; c++) {
+      const cell = stripAccents(rows[r][c]);
+      if (cell && cell.length <= maxLen && cell.includes(keyword)) return { row: r, col: c };
+    }
+  }
+  return null;
+}
+function findAllHeaderCells(rows, keyword, maxLen, headerZone, excludeKeywords) {
+  const out = [];
+  for (let r = 0; r < headerZone; r++) {
+    if (!rows[r]) continue;
+    for (let c = 0; c < rows[r].length; c++) {
+      const cell = stripAccents(rows[r][c]);
+      if (!cell || cell.length > maxLen || !cell.includes(keyword)) continue;
+      if (excludeKeywords && excludeKeywords.some(k => cell.includes(k))) continue;
+      out.push({ row: r, col: c });
+    }
+  }
+  return out;
+}
+function importCSV(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const text = e.target.result.replace(/^\uFEFF/, '');
+    const rows = parseCSVFull(text);
+    if (rows.length < 2) { alert('Le fichier CSV est vide ou ne contient aucune équipe.'); return; }
+
+    // Le bloc d'en-tête (simple ligne comme notre modèle, ou 2 lignes fusionnées comme la grille Excel)
+    // se trouve toujours dans les 10 premières lignes.
+    const headerZone = Math.min(rows.length, 10);
+    const cNum = findHeaderCell(rows, 'eq', 15, headerZone);
+    const cNom = findHeaderCell(rows, 'nom', 20, headerZone);
+    const cC1 = findHeaderCell(rows, 'coureur1', 30, headerZone) || findHeaderCell(rows, 'coureur 1', 30, headerZone);
+    const cZ1 = findHeaderCell(rows, 'zone1', 20, headerZone) || findHeaderCell(rows, 'zone 1', 20, headerZone);
+    const cPerf = findHeaderCell(rows, 'performance', 30, headerZone);
+    const cTemps = findHeaderCell(rows, 'temps', 40, headerZone) || findHeaderCell(rows, 'chrono', 40, headerZone);
+    const cTransDirect = findHeaderCell(rows, 'transmission', 20, headerZone); // ne matche que le libellé court ("Transmission"), pas la longue étiquette fusionnée
+    const noteMatches = findAllHeaderCells(rows, 'note', 30, headerZone, ['performance','transmission']).sort((a,b) => a.col - b.col);
+    const cNoteFinal = noteMatches.length ? noteMatches[noteMatches.length - 1] : null;
+    const cTransFromNote = (!cTransDirect && noteMatches.length >= 2) ? noteMatches[noteMatches.length - 2] : null;
+    const cTrans = cTransDirect || cTransFromNote;
+
+    const idxNum = cNum ? cNum.col : -1;
+    const idxNom = cNom ? cNom.col : -1;
+    const idxC1 = cC1 ? cC1.col : -1;
+    const idxZ1 = cZ1 ? cZ1.col : -1;
+    const idxPerf = cPerf ? cPerf.col : -1;
+    const idxTemps = cTemps ? cTemps.col : -1;
+    const idxTrans = cTrans ? cTrans.col : -1;
+    const idxNote = cNoteFinal ? cNoteFinal.col : -1;
+
+    if (idxNum === -1 && idxNom === -1) { alert('Colonnes "N° Éq." / "Nom d\'équipe" introuvables dans le fichier. Vérifiez l\'en-tête du CSV (voir le bouton "Modèle CSV").'); return; }
+    if (idxPerf === -1 && idxTemps === -1) { alert('Ni colonne "Performance" ni colonne "Temps/Chrono" trouvée dans le fichier. Vérifiez l\'en-tête du CSV (voir le bouton "Modèle CSV"), ou importez d\'abord la composition puis notez dans l\'application.'); return; }
+
+    // Les données démarrent juste après la dernière ligne d'en-tête détectée
+    const headerRows = [cNum,cNom,cC1,cZ1,cPerf,cTemps,cTransDirect,cTrans,cNoteFinal].filter(Boolean).map(c => c.row);
+    const dataStart = headerRows.length ? Math.max(...headerRows) + 1 : 1;
+
+    const niveauScolaire = getNiveauActif();
+    const M = getPerfMax(niveauScolaire);
+    const totalMax = M + 6;
+    const nb = getNbCoureurs();
+    const bands = getBands();
+    let importees = 0, ignorees = 0;
+
+    rows.slice(dataStart).forEach(cols => {
+      const numEq = idxNum !== -1 ? cols[idxNum] : '';
+      const nom = idxNom !== -1 ? cols[idxNom] : '';
+      if (!numEq && !nom) { ignorees++; return; }
+      if ((numEq || '').toLowerCase().includes('moyenne')) return; // ligne récap ignorée silencieusement
+
+      const coureurs = [];
+      for (let k = 0; k < nb; k++) {
+        const ci = idxC1 !== -1 ? idxC1 + k : -1;
+        coureurs.push(ci !== -1 && cols[ci] !== undefined ? cols[ci] : '');
+      }
+      let perf = idxPerf !== -1 ? parseFloat(String(cols[idxPerf]).replace(',', '.')) : NaN;
+      if (isNaN(perf) && idxTemps !== -1) {
+        const t = parseTempsExact(cols[idxTemps]);
+        if (t !== null) perf = perfFromTemps(t, bands);
+      }
+      const zones = [];
+      for (let k = 0; k < nb - 1; k++) {
+        const zi = idxZ1 !== -1 ? idxZ1 + k : -1;
+        zones.push(zi !== -1 ? zoneFromCell(cols[zi]) : 'bien');
+      }
+      let trans = idxTrans !== -1 ? parseFloat(String(cols[idxTrans]).replace(',', '.')) : NaN;
+      if (isNaN(trans)) trans = +(zones.reduce((a,z) => a + (ZONE_SCORES[z] || 4), 0) / zones.length).toFixed(2);
+      const graded = !isNaN(perf);
+      const perfFinal = graded ? perf : null;
+
+      let note = null;
+      if (graded) {
+        note = idxNote !== -1 && !isNaN(parseFloat(String(cols[idxNote]).replace(',', '.')))
+          ? parseFloat(String(cols[idxNote]).replace(',', '.'))
+          : perfFinal + trans;
+        note = Math.max(0, Math.min(totalMax, +note.toFixed(2)));
+      }
+      const appr = graded ? appreciationFromRatio(note / totalMax) : { label: 'Non noté', cls: '' };
+
+      equipes.push({
+        numEq: numEq || `Éq.${equipes.length+1}`, nom, coureurs, zones,
+        perf: perfFinal, perfMax: M, trans, transMax: 6, graded,
+        note, totalMax, appreciation: appr.label, apprCls: appr.cls,
+        niveauScolaire, format: `${nb}×${document.getElementById('formatSelect').value}m`
+      });
+      importees++;
+    });
+
+    renderTable(); updateStats();
+    event.target.value = '';
+    alert(`Import terminé : ${importees} équipe(s) importée(s)${ignorees ? `, ${ignorees} ligne(s) ignorée(s)` : ''}.`);
+  };
+  reader.onerror = function() { alert('Impossible de lire le fichier.'); };
+  reader.readAsText(file, 'UTF-8');
+}
+
+// ═══════ IMPRESSION ═══════
+function imprimerTableau() {
+  if (!equipes.length) { alert('Aucune équipe à imprimer.'); return; }
+  const niveauTxt = document.getElementById('niveauSelect').value;
+  const dist = document.getElementById('formatSelect').value;
+  const nb = document.getElementById('coureursSelect').value;
+  const etab = document.getElementById('etab').value || '—';
+  const dateSeance = document.getElementById('dateSeance').value || '—';
+  const numSeance = document.getElementById('numSeance').value || '—';
+  const moy = (equipes.reduce((a,e)=>a+e.note,0)/equipes.length).toFixed(1);
+  const totalMaxCourant = getPerfMax(niveauTxt) + 6;
+  const perfMaxCourant = getPerfMax(niveauTxt);
+
+  const rows = equipes.map(e => `
+    <tr>
+      <td>${e.numEq}</td>
+      <td>${e.nom || '—'}</td>
+      <td>${e.coureurs.filter(c=>c).join(', ') || '—'}</td>
+      <td>${e.perf}/${e.perfMax}</td>
+      <td>${e.zones.join(' / ')}</td>
+      <td>${e.trans}/${e.transMax}</td>
+      <td><strong>${e.note}/${e.totalMax}</strong></td>
+      <td>${e.appreciation}</td>
+    </tr>`).join('');
+
+  const win = window.open('', '_blank');
+  win.document.write(`
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <title>Évaluation Course de Relais — ${etab}</title>
+      <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; color: #111; padding: 32px; }
+        h1 { font-size: 1.4rem; margin-bottom: 4px; }
+        .meta { font-size: 0.85rem; color: #444; margin-bottom: 20px; line-height: 1.6; }
+        .meta strong { color: #000; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+        th, td { border: 1px solid #999; padding: 5px 6px; text-align: left; }
+        th { background: #f0f0f0; text-transform: uppercase; font-size: 0.62rem; letter-spacing: 0.5px; }
+        tfoot td { font-weight: bold; background: #f7f7f7; }
+        .footer-note { margin-top: 24px; font-size: 0.75rem; color: #666; }
+        @media print { body { padding: 8px; } }
+      </style>
+    </head>
+    <body>
+      <h1>Évaluation — Course de Relais</h1>
+      <div class="meta">
+        <strong>Établissement :</strong> ${etab} &nbsp;·&nbsp;
+        <strong>Niveau :</strong> ${niveauTxt} &nbsp;·&nbsp;
+        <strong>Format :</strong> ${nb} × ${dist} m &nbsp;·&nbsp;
+        <strong>Séance n°</strong> ${numSeance} &nbsp;·&nbsp;
+        <strong>Date :</strong> ${dateSeance}
+      </div>
+      <table>
+        <thead>
+          <tr><th>N° Éq.</th><th>Nom d'équipe</th><th>Coureurs</th><th>Performance /${perfMaxCourant}</th><th>Zones</th><th>Transmission /6</th><th>Note /${totalMaxCourant}</th><th>Appréciation</th></tr>
+        </thead>
+        <tbody>${rows}</tbody>
+        <tfoot>
+          <tr><td colspan="6">Moyenne de la classe</td><td colspan="2">${moy}/${totalMaxCourant}</td></tr>
+        </tfoot>
+      </table>
+      <div class="footer-note">Note procédurale (Perf.) adaptée au niveau : 1AC = /12 · 2AC = /13 · 3AC = /14. Barème de temps personnalisé par niveau/distance/nb de coureurs. Document généré depuis APR 2026 — Outil d&#8217;aide à l&#8217;évaluation, course de relais.</div>
+    </body>
+    </html>
+  `);
+  win.document.close();
+  win.focus();
+  win.print();
+}
+
+// ═══════ CONDUITES ═══════
+function showNiveau(niv, btn) {
+  document.querySelectorAll('.niveau-content').forEach(el => el.style.display='none');
+  document.querySelectorAll('.niv-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('niv-'+niv).style.display='block';
+  btn.classList.add('active');
+}
+
+// ═══════ PLANIFICATION — PROJET DE CYCLE 3 NIVEAUX ═══════
+
+// Données pédagogiques par niveau : compétence attendue, situation de référence, séances détaillées
+const CYCLE_DATA = {
+  N1: {
+    label: 'Niveau 1 — Découverte',
+    classe: '1ASC',
+    competence: 'Réaliser une performance mesurable dans une transmission à l&#8217;arrêt ou en marchant, en respectant son couloir et les règles essentielles de sécurité.',
+    situationRef: '4 × 50 m, zone de transmission de 15 m, transmission à l&#8217;arrêt ou en marche rapide, signal verbal libre.',
+    reperesEval: 'Le témoin n&#8217;est pas perdu. La transmission a lieu dans la zone, même ralentie. Le couloir est respecté sur tout le parcours.',
+    seances: [
+      { phase:'decouverte', titre:'Découverte de l&#8217;activité et du matériel', objectif:'Connaître les règles essentielles (couloirs, zone, témoin) et se déplacer en sécurité', contenu:'Mise en place du dispositif, présentation du témoin et de la zone de 15 m, jeux de familiarisation par équipes de 4', tags:['Règles','Sécurité','Témoin','Repères'] },
+      { phase:'decouverte', titre:'Course en couloir et premiers repères spatiaux', objectif:'Courir droit dans son couloir sans en sortir, tenir sa trajectoire à vitesse modérée', contenu:'Ateliers de course en couloir balisé, variation de largeur, prise de repères visuels au sol', tags:['Couloir','Trajectoire','Repères','Vitesse'] },
+      { phase:'decouverte', titre:'Transmission à l&#8217;arrêt : premiers essais', objectif:'Réaliser une transmission main à main à l&#8217;arrêt sans faire tomber le témoin', contenu:'Travail par binôme face à face puis dos à dos, transmission statique répétée, verbalisation du geste', tags:['Transmission','Binôme','Témoin','Geste'] },
+      { phase:'apprentissage', titre:'Transmission en marchant dans la zone', objectif:'Transmettre le témoin en marchant à l&#8217;intérieur de la zone réglementaire', contenu:'Déplacement en marche rapide, receveur qui démarre légèrement avant l&#8217;arrivée du donneur, marquage de zone au sol', tags:['Zone 15m','Marche','Transmission','Anticipation'] },
+      { phase:'apprentissage', titre:'Signal verbal et placement du receveur', objectif:'Choisir et utiliser un signal verbal clair pour déclencher le départ du receveur', contenu:'Essais de différents signaux (mot, geste), ajustement du placement de départ du receveur dans la zone', tags:['Signal','Placement','Communication','Zone'] },
+      { phase:'apprentissage', titre:'Du marcher au trottiner', objectif:'Transmettre en trottinant sans ralentir excessivement ni perdre le témoin', contenu:'Progression marche → trottinement léger, allongement progressif de la distance d&#8217;élan du receveur', tags:['Trottinement','Progressivité','Allure','Coordination'] },
+      { phase:'apprentissage', titre:'Constitution des équipes et ordre de passage', objectif:'Choisir un ordre de coureurs cohérent au sein de l&#8217;équipe', contenu:'Mesure de vitesse individuelle simple, discussion collective sur l&#8217;ordre de passage, premiers essais d&#8217;équipe complète', tags:['Équipe','Ordre','Stratégie','Coopération'] },
+      { phase:'approfondissement', titre:'Relais complet à allure modérée', objectif:'Réaliser un relais 4×50 m complet sans perte du témoin', contenu:'Course complète chronométrée à allure contrôlée, observation croisée entre équipes', tags:['4x50m','Chronométrage','Observation','Allure'] },
+      { phase:'approfondissement', titre:'Rôles dans le groupe : chronométreur, juge, observateur', objectif:'Tenir un rôle non-coureur et fournir une observation utile à ses camarades', contenu:'Rotation des rôles (chronométreur, juge de couloir, observateur de zone), fiche d&#8217;observation simple', tags:['Rôles','Observation','Coopération','Citoyenneté'] },
+      { phase:'approfondissement', titre:'Remédiation collective', objectif:'Identifier une erreur fréquente de son équipe et proposer une correction', contenu:'Analyse des essais précédents, ateliers ciblés par difficulté (zone, signal, couloir)', tags:['Remédiation','Analyse','Correction','Atelier'] },
+      { phase:'evaluation', titre:'Évaluation formative', objectif:'Se situer par rapport aux critères de réussite avant l&#8217;évaluation finale', contenu:'Passage chronométré avec grille d&#8217;observation, retour individualisé par équipe', tags:['Formative','Grille','Retour','Repères'] },
+      { phase:'evaluation', titre:'Évaluation certificative', objectif:'Réaliser la meilleure performance collective possible en respectant les règles', contenu:'Passages officiels chronométrés, notation selon le barème (temps, transmission, coopération)', tags:['Certificative','Barème','/20','Bilan'] },
+    ]
+  },
+  N2: {
+    label: 'Niveau 2 — Consolidation',
+    classe: '2ASC',
+    competence: 'Réaliser une performance mesurable en transmettant le témoin en mouvement, dans la zone, en coordonnant son action avec celle du partenaire.',
+    situationRef: '4 × 50 m ou 4 × 100 m, zone de transmission de 20 m, transmission en trottinement ou course modérée, signal au choix de l&#8217;équipe.',
+    reperesEval: 'La transmission s&#8217;effectue en mouvement dans la zone. Le receveur démarre avant l&#8217;arrivée du donneur. Peu ou pas de ralentissement visible.',
+    seances: [
+      { phase:'decouverte', titre:'Rappel des fondamentaux et diagnostic', objectif:'Réactiver les acquis du niveau précédent et identifier le niveau du groupe', contenu:'Relais diagnostique 4×50 m, observation collective, recueil des représentations sur la notion de vitesse relative', tags:['Diagnostic','Rappel','Observation','Vitesse'] },
+      { phase:'decouverte', titre:'La notion de vitesse relative', objectif:'Comprendre que le receveur doit être en mouvement avant l&#8217;arrivée du donneur', contenu:'Situations d&#8217;échange de vitesse à 2, marques de déclenchement variables, verbalisation du principe', tags:['Vitesse relative','Marque','Échange','Compréhension'] },
+      { phase:'apprentissage', titre:'Pose de la marque de départ du receveur', objectif:'Placer une marque personnelle fiable pour déclencher son départ', contenu:'Essais répétés avec marque au sol, ajustement individuel selon la vitesse du donneur, mesure des écarts', tags:['Marque','Départ','Ajustement','Mesure'] },
+      { phase:'apprentissage', titre:'Transmission en trottinement dans la zone de 20 m', objectif:'Transmettre sans ralentissement marqué, dans la zone réglementaire élargie', contenu:'Travail en binôme puis en groupe de 4, allongement progressif de la zone d&#8217;élan, chronométrage de zone', tags:['Zone 20m','Trottinement','Chronométrage','Binôme'] },
+      { phase:'apprentissage', titre:'Signal tactile et regard', objectif:'Affiner la communication donneur-receveur par le tact plutôt que la voix', contenu:'Suppression progressive du signal verbal, transmission au tact, travail du regard du receveur (devant soi)', tags:['Signal tactile','Regard','Communication','Précision'] },
+      { phase:'apprentissage', titre:'Coordination bras-jambes pendant l&#8217;échange', objectif:'Maintenir une coordination de course pendant tout l&#8217;échange du témoin', contenu:'Ateliers techniques sur la tenue du témoin, passation main droite/gauche, maintien de l&#8217;allure de course', tags:['Coordination','Technique','Tenue témoin','Allure'] },
+      { phase:'apprentissage', titre:'Stratégie d&#8217;équipe : ordre et spécialisation des rôles', objectif:'Définir un ordre de coureurs argumenté selon les forces de chacun', contenu:'Mesure de performances individuelles (30-40 m), discussion stratégique encadrée, formalisation de l&#8217;ordre', tags:['Stratégie','Ordre','Performance','Argumentation'] },
+      { phase:'approfondissement', titre:'Relais complet à vitesse soutenue', objectif:'Réaliser un 4×50 m ou 4×100 m avec transmissions fluides à vitesse soutenue', contenu:'Course chronométrée par équipe, identification des zones de perte de temps (transmission vs course)', tags:['Vitesse soutenue','Chronométrage','Fluidité','Analyse'] },
+      { phase:'approfondissement', titre:'Analyse vidéo ou observation différée', objectif:'Analyser une transmission à partir d&#8217;une observation extérieure pour la corriger', contenu:'Observation croisée entre équipes avec fiche critériée, retour vidéo si disponible, ajustement des marques', tags:['Analyse','Observation','Vidéo','Correction'] },
+      { phase:'approfondissement', titre:'Situations de compétition inter-équipes', objectif:'Gérer la pression d&#8217;une opposition directe sans dégrader la qualité de transmission', contenu:'Tournoi de relais entre équipes constituées, enjeu de classement, débriefing collectif', tags:['Compétition','Tournoi','Gestion pression','Classement'] },
+      { phase:'evaluation', titre:'Évaluation formative', objectif:'Vérifier la maîtrise des critères de réussite avant l&#8217;évaluation finale', contenu:'Passage chronométré filmé ou observé, grille de transmission (/3) et coopération (/3), retours ciblés', tags:['Formative','Grille','Retour','Critères'] },
+      { phase:'evaluation', titre:'Évaluation certificative', objectif:'Produire la meilleure performance collective avec une transmission maîtrisée', contenu:'Passages officiels chronométrés, notation selon barème (performance, transmission, coopération, pénalités)', tags:['Certificative','Barème','/20','Bilan'] },
+    ]
+  },
+  N3: {
+    label: 'Niveau 3 — Perfectionnement',
+    classe: '3ASC',
+    competence: 'Réaliser la meilleure performance possible en transmettant le témoin à pleine vitesse, en zone, sans ralentissement, et en gérant collectivement la stratégie d&#8217;équipe.',
+    situationRef: '4 × 100 m, zone de transmission de 20 m, transmission aveugle recommandée à pleine vitesse, autonomie totale de l&#8217;équipe sur l&#8217;organisation.',
+    reperesEval: 'Transmission en fin de zone à vitesse quasi maximale, sans rupture de la coordination bras-jambes. Le receveur ne se retourne pas (transmission aveugle).',
+    seances: [
+      { phase:'decouverte', titre:'Diagnostic et relevé des marges de progrès', objectif:'Identifier précisément les points forts et les points à améliorer de chaque équipe', contenu:'Relais diagnostique 4×100 m chronométré, décomposition des temps par zone (course / transmission)', tags:['Diagnostic','4x100m','Décomposition','Analyse'] },
+      { phase:'decouverte', titre:'Vers la transmission aveugle', objectif:'Comprendre les enjeux et les risques de la transmission sans regard en arrière', contenu:'Présentation du principe, premiers essais à vitesse réduite, sécurisation du geste avant la vitesse', tags:['Transmission aveugle','Sécurité','Principe','Initiation'] },
+      { phase:'apprentissage', titre:'Affinement de la marque à vitesse élevée', objectif:'Réajuster sa marque de départ pour une transmission à vitesse proche du maximum', contenu:'Séries chronométrées à allure croissante, ajustement fin de la marque, mesure des écarts de vitesse', tags:['Marque','Vitesse max','Ajustement fin','Chronométrage'] },
+      { phase:'apprentissage', titre:'Transmission aveugle en zone à allure soutenue', objectif:'Transmettre sans se retourner, dans la zone, à une allure proche de la course', contenu:'Travail technique du bras tendu du receveur, signal tactile uniquement, répétitions progressives', tags:['Aveugle','Zone 20m','Technique bras','Répétition'] },
+      { phase:'apprentissage', titre:'Maintien de l&#8217;allure maximale sur l&#8217;ensemble du parcours', objectif:'Ne pas ralentir avant ou après la zone de transmission', contenu:'Chronométrage par segments (avant/dans/après la zone), travail spécifique sur les zones de relâchement identifiées', tags:['Allure max','Segments','Relâchement','Performance'] },
+      { phase:'apprentissage', titre:'Optimisation de l&#8217;ordre des coureurs', objectif:'Construire un ordre de coureurs optimal en justifiant les choix par les données chronométrées', contenu:'Analyse de données de performance individuelle et de qualité de transmission, simulation de différents ordres', tags:['Optimisation','Ordre','Données','Stratégie'] },
+      { phase:'apprentissage', titre:'Stratégie d&#8217;équipe complète et autonomie', objectif:'Organiser collectivement l&#8217;équipe (ordre, marques, signaux) en autonomie', contenu:'Travail en autonomie complète par équipe, enseignant en observation/conseil uniquement', tags:['Autonomie','Stratégie','Organisation','Équipe'] },
+      { phase:'approfondissement', titre:'Relais complet à vitesse maximale', objectif:'Réaliser un 4×100 m à vitesse maximale avec transmission aveugle stabilisée', contenu:'Course chronométrée à pleine intensité, mesure du temps relais comparé à la somme des temps individuels', tags:['Vitesse max','4x100m','Comparaison','Performance'] },
+      { phase:'approfondissement', titre:'Situation de compétition inter-équipes à enjeu', objectif:'Maintenir la qualité technique sous la pression d&#8217;une compétition directe', contenu:'Tournoi inter-équipes avec classement, gestion du stress et de la prise de risque en zone', tags:['Compétition','Enjeu','Pression','Risque'] },
+      { phase:'approfondissement', titre:'Analyse fine et remédiation individualisée', objectif:'Analyser ses propres données de performance pour cibler une amélioration précise', contenu:'Étude des chronométrages par zone, plan d&#8217;action individuel et collectif avant l&#8217;évaluation', tags:['Analyse fine','Remédiation','Plan d&#8217;action','Individualisation'] },
+      { phase:'evaluation', titre:'Évaluation formative', objectif:'Valider la stabilité de la performance avant l&#8217;évaluation certificative', contenu:'Passage chronométré avec grille complète (performance, transmission aveugle, coopération), ajustements finaux', tags:['Formative','Grille','Stabilité','Ajustement'] },
+      { phase:'evaluation', titre:'Évaluation certificative', objectif:'Produire la meilleure performance collective à vitesse maximale avec transmission maîtrisée', contenu:'Passages officiels chronométrés, notation selon barème complet, bilan individuel et collectif du cycle', tags:['Certificative','Barème','/20','Bilan cycle'] },
+    ]
+  }
+};
+
+const PHASE_LABELS = { decouverte:'Découverte', apprentissage:'Apprentissage', approfondissement:'Approfondissement', evaluation:'Évaluation' };
+const PHASE_COLOR_VAR = { decouverte:'--lime', apprentissage:'--amber', approfondissement:'--sky', evaluation:'--red' };
+
+function genererCycle() {
+  const nseances = parseInt(document.getElementById('planSeances').value);
+  const niveauKey = document.getElementById('planNiveau').value;
+  const nbCoureurs = document.getElementById('planCoureurs').value;
+  const format = document.getElementById('planFormat').value;
+  const duree = document.getElementById('planDuree').value;
+  const data = CYCLE_DATA[niveauKey];
+
+  document.getElementById('cycleTitle').textContent = `Projet de Cycle — Course de Relais · ${data.label} (${data.classe})`;
+  document.getElementById('cycleSubtitle').textContent = `${nseances} séances de ${duree} · ${nbCoureurs} × ${format}`;
+
+  // Adapter la banque de séances (12 max) au nombre demandé en conservant la proportion des phases
+  let pool = data.seances.slice();
+  let seancesFinal;
+  if (nseances >= pool.length) {
+    seancesFinal = pool;
+  } else {
+    // Garde toujours les 2 dernières (évaluation) et répartit le reste proportionnellement
+    const evalSeances = pool.filter(s => s.phase === 'evaluation');
+    const nonEval = pool.filter(s => s.phase !== 'evaluation');
+    const nNonEval = Math.max(nseances - evalSeances.length, 1);
+    const step = nonEval.length / nNonEval;
+    const picked = [];
+    for (let i = 0; i < nNonEval; i++) picked.push(nonEval[Math.min(Math.floor(i * step), nonEval.length - 1)]);
+    seancesFinal = picked.concat(evalSeances);
+  }
+
+  // En-tête pédagogique du niveau
+  const summary = document.getElementById('niveauSummary');
+  summary.innerHTML = `
+    <div class="ns-block ns-full">
+      <div class="ns-label">🎯 Compétence Attendue</div>
+      <div class="ns-text">${data.competence}</div>
+    </div>
+    <div class="ns-block">
+      <div class="ns-label">📐 Situation de Référence</div>
+      <div class="ns-text">${data.situationRef}</div>
+    </div>
+    <div class="ns-block">
+      <div class="ns-label">✅ Repères d&#8217;Évaluation</div>
+      <div class="ns-text">${data.reperesEval}</div>
+    </div>
+  `;
+
+  // Barre de répartition des phases
+  const counts = { decouverte:0, apprentissage:0, approfondissement:0, evaluation:0 };
+  seancesFinal.forEach(s => counts[s.phase]++);
+  const total = seancesFinal.length;
+  const bar = document.getElementById('repartitionBar');
+  bar.innerHTML = Object.keys(counts).filter(k => counts[k] > 0).map(k =>
+    `<span style="width:${(counts[k]/total*100).toFixed(1)}%;background:var(${PHASE_COLOR_VAR[k]})"></span>`
+  ).join('');
+  const legend = document.getElementById('repartitionLegend');
+  legend.innerHTML = Object.keys(counts).filter(k => counts[k] > 0).map(k =>
+    `<span class="leg-item"><span class="leg-dot" style="background:var(${PHASE_COLOR_VAR[k]})"></span>${PHASE_LABELS[k]} · ${counts[k]} séance${counts[k]>1?'s':''}</span>`
+  ).join('');
+
+  // Grille des séances
+  const grid = document.getElementById('seancesGrid');
+  grid.innerHTML = seancesFinal.map((s, i) => `
+    <div class="seance-card phase-${s.phase}">
+      <div class="seance-header">
+        <div class="seance-num">S${String(i+1).padStart(2,'0')}</div>
+        <span class="seance-phase phase-${s.phase}">${PHASE_LABELS[s.phase]}</span>
+      </div>
+      <div class="seance-title">${s.titre}</div>
+      <div class="seance-obj">🎯 ${s.objectif}</div>
+      <div class="seance-obj" style="opacity:0.85">🛠 ${s.contenu}</div>
+      <div class="seance-tags">${s.tags.map(t=>`<span class="seance-tag">${t}</span>`).join('')}</div>
+    </div>
+  `).join('');
+  document.getElementById('cycleOutput').style.display = 'block';
+}
+
+function exportCyclePlan() {
+  const niveauKey = document.getElementById('planNiveau').value;
+  const data = CYCLE_DATA[niveauKey];
+  const rows = document.querySelectorAll('.seance-card');
+  if (!rows.length) return;
+  let csv = 'Séance,Phase,Thème,Objectif,Contenu\n';
+  rows.forEach(r => {
+    const num = r.querySelector('.seance-num').textContent;
+    const phase = r.querySelector('.seance-phase').textContent;
+    const titre = r.querySelector('.seance-title').textContent;
+    const objs = r.querySelectorAll('.seance-obj');
+    const obj = objs[0].textContent.replace('🎯 ','').replace(/"/g,"'");
+    const contenu = objs[1] ? objs[1].textContent.replace('🛠 ','').replace(/"/g,"'") : '';
+    csv += `${num},${phase},"${titre}","${obj}","${contenu}"\n`;
+  });
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `cycle-relais-${data.classe}-planification.csv`; a.click();
+}
+
+// Init
+updateRelaisInfo();
+</script>
+</body>
+</html>
